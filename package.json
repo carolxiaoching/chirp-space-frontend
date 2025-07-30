@@ -24,8 +24,11 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.364",
     "@tailwindcss/forms": "^0.5.10",
-    "git-cz": "^4.9.0"
+    "git-cz": "^4.9.0",
+    "unplugin-icons": "^22.2.0",
+    "unplugin-vue-components": "^28.8.0"
   },
   "config": {
     "commitizen": {
