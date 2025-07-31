@@ -4,8 +4,5 @@ provideHeadlessUseId(() => useId());
 </script>
 
 <template>
-  <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
-  </div>
+  <div></div>
 </template>

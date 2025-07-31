@@ -35,6 +35,40 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      title: "啾啾 | Chirp",
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+      meta: [
+        { "http-equiv": "X-UA-Compatible", content: "IE=edge" },
+        { "http-equiv": "X-Content-Type-Options", content: "nosniff" },
+        { name: "author", content: "啾啾開發小隊" },
+        {
+          name: "keywords",
+          content: "啾啾,Chirp,社群網站,留言,按讚,追蹤,發文,社交平台",
+        },
+        {
+          name: "description",
+          content: "啾啾是一個輕量自由的社群平台，讓你用一則貼文啾出生活點滴。",
+        },
+        { property: "og:locale", content: "zh-TW" },
+        { property: "og:type", content: "website" },
+        {
+          property: "og:url",
+          content: "https://chirp-space-frontend.onrender.com",
+        },
+        {
+          property: "og:title",
+          content: "啾啾 | Chirp",
+        },
+        {
+          property: "og:image",
+          content: "https://example.com/image.png",
+        },
+        {
+          property: "og:description",
+          content: "在啾啾用你的聲音分享生活、連結好友，一起自由發聲。",
+        },
+      ],
       link: [
         {
           rel: "preconnect",
