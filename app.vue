@@ -7,6 +7,7 @@ provideHeadlessUseId(() => useId());
   <div>
     <ClientOnly>
       <BaseToastMessage />
+      <BaseAlertLoginModal />
     </ClientOnly>
   </div>
 </template>

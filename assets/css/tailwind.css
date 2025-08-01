@@ -6,3 +6,34 @@
     font-family: "Noto Sans TC", system-ui, sans-serif;
   }
 }
+
+@layer components {
+  /* 按鈕相關 */
+  .btn {
+    @apply inline-block cursor-pointer rounded-md border px-8 py-3 text-center shadow transition outline-none disabled:cursor-not-allowed disabled:shadow-none;
+  }
+
+  .btn-primary {
+    @apply border-primary bg-primary hover:bg-primary/80 disabled:border-primary/10 disabled:bg-primary/50 text-white;
+  }
+
+  .btn-outline-primary {
+    @apply border-primary bg-light hover:bg-primary/80 disabled:border-primary/10 disabled:bg-primary/50 text-primary hover:text-white;
+  }
+
+  .btn-light {
+    @apply bg-light text-muted border-muted hover:bg-muted disabled:bg-light hover:text-white;
+  }
+
+  .btn-danger {
+    @apply bg-danger border-danger hover:bg-danger/80 disabled:border-danger/10 disabled:bg-danger/80 text-white;
+  }
+
+  .btn-outline-danger {
+    @apply border-danger hover:bg-danger/80 disabled:border-danger/80 disabled:bg-danger/50 text-danger hover:text-white;
+  }
+
+  .btn-sm {
+    @apply px-6 py-2 text-sm;
+  }
+}
