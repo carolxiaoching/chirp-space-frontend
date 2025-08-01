@@ -4,5 +4,9 @@ provideHeadlessUseId(() => useId());
 </script>
 
 <template>
-  <div></div>
+  <div>
+    <ClientOnly>
+      <BaseToastMessage />
+    </ClientOnly>
+  </div>
 </template>
