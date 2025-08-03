@@ -1,5 +1,6 @@
 <script setup>
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+const { openOffcanvas } = useOffcanvas();
 
 const userInfo = ref({
   _id: "",
@@ -41,6 +42,7 @@ async function search() {
         <a
           href="#"
           class="text-primary hover:bg-light block rounded p-2 text-3xl hover:cursor-pointer"
+          @click.prevent="openOffcanvas"
         >
           <icon-ic-round-menu />
         </a>

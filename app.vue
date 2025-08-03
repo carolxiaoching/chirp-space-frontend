@@ -4,6 +4,7 @@ provideHeadlessUseId(() => useId());
 </script>
 
 <template>
+  <OffcanvasMenu />
   <NuxtLayout>
     <NuxtPage />
 
