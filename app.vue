@@ -4,10 +4,12 @@ provideHeadlessUseId(() => useId());
 </script>
 
 <template>
-  <div>
+  <NuxtLayout>
+    <NuxtPage />
+
     <ClientOnly>
       <BaseToastMessage />
       <BaseAlertLoginModal />
     </ClientOnly>
-  </div>
+  </NuxtLayout>
 </template>
