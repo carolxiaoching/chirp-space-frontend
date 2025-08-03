@@ -1,10 +1,13 @@
 <script setup></script>
 
 <template>
-  <div class="">
+  <div class="relative">
     <AppHeader />
-    <main class="main container mx-auto mt-[65px] py-12">
-      <slot />
+    <main class="main container mx-auto mt-[65px] flex py-12">
+      <div class="flex-1 xl:me-8">
+        <slot />
+      </div>
+      <AsideMenu />
     </main>
     <AppFooter />
   </div>
