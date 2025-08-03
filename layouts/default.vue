@@ -2,8 +2,16 @@
 
 <template>
   <div class="">
-    <slot />
+    <AppHeader />
+    <main class="main container mx-auto mt-[65px] py-12">
+      <slot />
+    </main>
+    <AppFooter />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.main {
+  min-height: calc(100vh - 65px - 64px);
+}
+</style>

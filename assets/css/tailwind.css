@@ -36,4 +36,22 @@
   .btn-sm {
     @apply px-6 py-2 text-sm;
   }
+
+  /* avatar */
+
+  .avatar {
+    @apply block size-12 rounded-full;
+  }
+
+  .avatar-default {
+    @apply bg-muted/60 flex items-center justify-center text-3xl text-white;
+  }
+
+  .avatar-sm {
+    @apply size-10;
+  }
+
+  .avatar-lg {
+    @apply size-16;
+  }
 }
