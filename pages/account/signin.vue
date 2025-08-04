@@ -1,6 +1,10 @@
 <script setup>
+import { authAPI } from "@/apis/auth";
+
+const { apiSignIn } = authAPI();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
+const { setAuth } = useAuthStore();
 
 const formRef = ref(null);
 const errorMsg = ref("");
@@ -13,18 +17,40 @@ const userData = ref({
 async function signin() {
   openLoading();
 
-  // 重置表單
-  formRef.value.resetForm();
+  try {
+    const data = await apiSignIn(userData.value);
 
-  // 跳轉首頁
-  await navigateTo("/");
+    const { user, token } = data.data;
 
-  pushToast({
-    message: "登入成功",
-    status: "success",
-  });
+    setAuth(user);
 
-  closeLoading();
+    const auth = useCookie("auth", {
+      path: "/",
+      // 期限為一天
+      maxAge: 60 * 60 * 24,
+    });
+    auth.value = token;
+
+    // 重置表單
+    formRef.value.resetForm();
+
+    // 跳轉首頁
+    await navigateTo("/");
+
+    pushToast({
+      message: "登入成功",
+      status: "success",
+    });
+  } catch (err) {
+    errorMsg.value = err.response?._data?.message || "登入失敗";
+
+    pushToast({
+      message: "登入失敗",
+      status: "danger",
+    });
+  } finally {
+    closeLoading();
+  }
 }
 </script>
 

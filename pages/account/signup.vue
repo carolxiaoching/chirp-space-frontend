@@ -1,6 +1,10 @@
 <script setup>
+import { authAPI } from "@/apis/auth";
+
+const { apiSignUp } = authAPI();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
+const { setAuth } = useAuthStore();
 
 const formRef = ref(null);
 const errorMsg = ref("");
@@ -15,18 +19,39 @@ const userData = ref({
 async function signup() {
   openLoading();
 
-  // 重置表單
-  formRef.value.resetForm();
+  try {
+    const data = await apiSignUp(userData.value);
+    const { user, token } = data.data;
 
-  // 跳轉首頁
-  await navigateTo("/");
+    setAuth(user);
 
-  pushToast({
-    message: "註冊成功",
-    status: "success",
-  });
+    const auth = useCookie("auth", {
+      path: "/",
+      // 期限為一天
+      maxAge: 60 * 60 * 24,
+    });
+    auth.value = token;
 
-  closeLoading();
+    // 重置表單
+    formRef.value.resetForm();
+
+    // 跳轉首頁
+    await navigateTo("/");
+
+    pushToast({
+      message: "註冊成功",
+      status: "success",
+    });
+  } catch (err) {
+    errorMsg.value = err.response?._data?.message || "註冊失敗";
+
+    pushToast({
+      message: "註冊失敗",
+      status: "danger",
+    });
+  } finally {
+    closeLoading();
+  }
 }
 </script>
 

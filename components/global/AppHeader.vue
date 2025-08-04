@@ -1,16 +1,10 @@
 <script setup>
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+
 const { openOffcanvas } = useOffcanvas();
-
-const userInfo = ref({
-  _id: "",
-  nickName: "",
-  avatar: {
-    imageUrl: "",
-  },
-});
-
-const isSignedIn = ref(false);
+const authStore = useAuthStore();
+const { isSignedIn, userInfo } = storeToRefs(authStore);
+const { clearAuth } = authStore;
 
 const searchText = ref("");
 
@@ -150,6 +144,7 @@ async function search() {
                     active ? 'bg-primary text-white' : 'text-primary',
                     'flex w-full items-center rounded-md px-3 py-2',
                   ]"
+                  @click.prevent="clearAuth"
                 >
                   <icon-ic-round-logout class="me-2" />
                   登出

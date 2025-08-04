@@ -1,15 +1,9 @@
 <script setup>
 const { isOffcanvasOpen, closeOffcanvas } = useOffcanvas();
 
-const userInfo = ref({
-  _id: "",
-  nickName: "",
-  avatar: {
-    imageUrl: "",
-  },
-});
-
-const isSignedIn = ref(false);
+const authStore = useAuthStore();
+const { isSignedIn, userInfo } = storeToRefs(authStore);
+const { clearAuth } = authStore;
 
 const searchText = ref("");
 
@@ -217,6 +211,7 @@ onMounted(() => {
               <a
                 href="#"
                 class="hover:bg-muted bg-light flex items-center justify-center rounded-md p-4 hover:text-white"
+                @click.prevent="clearAuth"
                 @click="closeOffcanvas"
               >
                 <icon-ic-round-logout class="me-2" />

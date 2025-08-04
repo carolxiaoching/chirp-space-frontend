@@ -1,13 +1,6 @@
 <script setup>
-const userInfo = ref({
-  _id: "",
-  nickName: "",
-  avatar: {
-    imageUrl: "",
-  },
-});
-
-const isSignedIn = ref(false);
+const authStore = useAuthStore();
+const { isSignedIn, userInfo } = storeToRefs(authStore);
 </script>
 
 <template>
