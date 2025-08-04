@@ -17,8 +17,12 @@ const isSignedIn = ref(false);
     <div v-if="!isSignedIn || !userInfo?._id">
       <h2 class="mb-4 text-2xl">請先登入或註冊</h2>
       <p class="text-muted mb-8">啾友們正在熱烈分享中~ 快加入你的聲音吧！</p>
-      <a href="#" class="btn btn-primary mb-4 block py-3"> 登入啾啾 </a>
-      <a href="#" class="btn btn-light block py-3"> 註冊啾啾 </a>
+      <NuxtLink to="/account/signin" class="btn btn-primary mb-4 block py-3">
+        登入啾啾
+      </NuxtLink>
+      <NuxtLink to="/account/signup" class="btn btn-light block py-3">
+        註冊啾啾
+      </NuxtLink>
     </div>
     <div v-else>
       <NuxtLink

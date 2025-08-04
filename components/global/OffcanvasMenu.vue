@@ -113,16 +113,20 @@ onMounted(() => {
           </div>
 
           <div v-if="!isSignedIn">
-            <a
-              href="#"
+            <NuxtLink
+              to="/account/signin"
               class="btn btn-primary mb-4 block"
               @click="closeOffcanvas"
             >
               登入
-            </a>
-            <a href="#" class="btn btn-light block" @click="closeOffcanvas">
+            </NuxtLink>
+            <NuxtLink
+              to="/account/signup"
+              class="btn btn-light block"
+              @click="closeOffcanvas"
+            >
               註冊
-            </a>
+            </NuxtLink>
           </div>
           <ul v-else class="flex h-full flex-col">
             <li class="mb-8">

@@ -66,8 +66,12 @@ async function search() {
       </div>
 
       <div v-if="!isSignedIn" class="hidden xl:flex">
-        <a href="#" class="btn btn-primary me-6 py-2"> 登入 </a>
-        <a href="#" class="btn btn-light py-2"> 註冊 </a>
+        <NuxtLink to="/account/signin" class="btn btn-primary me-6 py-2">
+          登入
+        </NuxtLink>
+        <NuxtLink to="/account/signup" class="btn btn-light py-2">
+          註冊
+        </NuxtLink>
       </div>
 
       <Menu v-if="isSignedIn" as="div" class="relative hidden xl:block">
