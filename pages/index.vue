@@ -4,6 +4,7 @@ import { postAPI } from "@/apis/post";
 const route = useRoute();
 
 const { apiGetAllPosts } = postAPI();
+const { updateLike } = usePostStore();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
 const { intersectionObserver, unobserve } = userIntersectionObserver();
@@ -60,6 +61,27 @@ async function getAllPosts() {
   }
 }
 
+// 按讚貼文/取消按讚貼文
+async function toggleLike({ actionType, postId }) {
+  const data = await updateLike({ actionType, postId });
+
+  if (!data) {
+    return;
+  }
+
+  // 修改本地 posts 資料，找到指定貼文並修改其 likes 陣列與 likesCount
+  const post = posts.value.find((item) => item._id === postId);
+  const index = post.likes.indexOf(data.targetUserId);
+
+  if (actionType === "like" && index === -1) {
+    post.likes.push(data.targetUserId);
+    post.likesCount++;
+  } else if (actionType === "unlike" && index !== -1) {
+    post.likes.splice(index, 1);
+    post.likesCount--;
+  }
+}
+
 // 清除搜尋
 async function clearSearch() {
   await navigateTo({
@@ -91,7 +113,7 @@ async function clearSearch() {
 
     <ul v-if="posts.length">
       <li v-for="post in posts" :key="post._id" class="mb-8 last:mb-0">
-        <PostCard :post="post" />
+        <PostCard :post="post" @update-like="toggleLike" />
       </li>
     </ul>
 

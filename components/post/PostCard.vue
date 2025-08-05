@@ -1,5 +1,6 @@
 <script setup>
 const { getFormatDate } = useTimeFormat();
+const { isLikedContent } = usePostUserRelation();
 
 defineProps({
   post: {
@@ -9,6 +10,8 @@ defineProps({
     },
   },
 });
+
+defineEmits(["updateLike"]);
 </script>
 
 <template>
@@ -68,10 +71,25 @@ defineProps({
         <ul class="-mb-1 flex items-center">
           <li class="me-1">
             <a
+              v-if="isLikedContent(post)"
               href="#"
               class="text-danger hover:bg-muted/10 flex items-center rounded-md px-3 py-1"
+              @click.prevent="
+                $emit('updateLike', { actionType: 'unlike', postId: post?._id })
+              "
             >
               <icon-ic-round-favorite class="text-md me-2" />
+              <span> {{ post.likesCount }} </span>
+            </a>
+            <a
+              v-else
+              href="#"
+              class="text-muted hover:bg-muted/10 flex items-center rounded-md px-3 py-1"
+              @click.prevent="
+                $emit('updateLike', { actionType: 'like', postId: post?._id })
+              "
+            >
+              <icon-ic-round-favorite-border class="text-md me-2" />
               <span> {{ post.likesCount }} </span>
             </a>
           </li>
