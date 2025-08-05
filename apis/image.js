@@ -2,7 +2,8 @@ export const imageAPI = () => {
   const {
     public: { apiUrl },
   } = useRuntimeConfig();
-  const authToken = ref("");
+  const authStore = useAuthStore();
+  const { authToken } = storeToRefs(authStore);
 
   function apiUploadImages(data, type = "photo") {
     return $fetch(`api/images?type=${type}`, {
