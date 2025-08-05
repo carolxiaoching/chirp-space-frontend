@@ -2,7 +2,8 @@ export const authAPI = () => {
   const {
     public: { apiUrl },
   } = useRuntimeConfig();
-  const authToken = ref("");
+  const authStore = useAuthStore();
+  const { authToken } = storeToRefs(authStore);
 
   function apiSignIn(data) {
     return $fetch("api/user/signin", {

@@ -2,7 +2,8 @@ export const postAPI = () => {
   const {
     public: { apiUrl },
   } = useRuntimeConfig();
-  const authToken = ref("");
+  const authStore = useAuthStore();
+  const { authToken } = storeToRefs(authStore);
 
   function apiGetAllPosts(query) {
     return $fetch(`api/posts`, {

@@ -2,7 +2,8 @@ export const commentAPI = () => {
   const {
     public: { apiUrl },
   } = useRuntimeConfig();
-  const authToken = ref("");
+  const authStore = useAuthStore();
+  const { authToken } = storeToRefs(authStore);
 
   function apiDeleteComment(commentId) {
     return $fetch(`api/comment/${commentId}`, {
