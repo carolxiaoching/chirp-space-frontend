@@ -1,6 +1,10 @@
 <script setup>
 import { authAPI } from "@/apis/auth";
 
+definePageMeta({
+  middleware: "guest",
+});
+
 const { apiSignIn } = authAPI();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
