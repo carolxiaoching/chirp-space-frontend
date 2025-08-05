@@ -1,11 +1,13 @@
 <script setup>
 import { authAPI } from "@/apis/auth";
+import { imageAPI } from "@/apis/image";
 
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
 const { setAuth } = authStore;
 
 const { apiUpdateMyProfile } = authAPI();
+const { apiUploadImages } = imageAPI();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
 
@@ -18,7 +20,7 @@ const user = ref({
   description: "",
   gender: "secret",
 });
-const previewImageUrl = ref("");
+const image = ref({ file: null, previewImageUrl: "" });
 
 async function updateAccount() {
   openLoading();
@@ -30,10 +32,24 @@ async function updateAccount() {
   };
 
   try {
+    // 如果有更新頭像，則上傳圖片
+    const file = image.value.file;
+    if (file) {
+      const formData = new FormData();
+      formData.append("images", file);
+
+      const imageData = await apiUploadImages(formData, "avatar");
+
+      userData.avatar = imageData.data[0].imageId;
+    }
+
     // 會員資料更新
     const profileData = await apiUpdateMyProfile(userData);
 
     setAuth(profileData.data);
+
+    // 重置表單
+    image.value.file = null;
 
     pushToast({
       message: "修改個人資料成功",
@@ -52,9 +68,7 @@ async function updateAccount() {
 watch(
   userInfo,
   (newVal) => {
-    if (!newVal || !newVal.email) {
-      return;
-    }
+    if (!newVal || !newVal.email) return;
 
     user.value = {
       email: newVal.email,
@@ -64,15 +78,22 @@ watch(
       avatar: newVal.avatar,
     };
     // 如果有頭像資料，則顯示頭像圖片
-    previewImageUrl.value = newVal.avatar?.imageUrl || "";
+    image.value.previewImageUrl = newVal.avatar?.imageUrl || "";
   },
   { immediate: true },
 );
 
-// 更換圖片
-function changeImage(event) {
-  const file = event.target.files[0];
-  console.log(file);
+function updatePrevieImage(data) {
+  const url = URL.createObjectURL(data.file);
+  image.value = { file: data.file, previewImageUrl: url };
+}
+
+function removePrevieImage() {
+  if (image.value.previewImageUrl) {
+    URL.revokeObjectURL(image.value.previewImageUrl);
+  }
+
+  image.value = { file: null, previewImageUrl: "" };
 }
 </script>
 
@@ -90,36 +111,14 @@ function changeImage(event) {
     </p>
 
     <div class="mx-auto mb-8 size-[16rem]">
-      <div v-if="previewImageUrl" class="relative h-full">
-        <img
-          :src="previewImageUrl"
-          class="bg-light block h-full w-full rounded-full object-cover"
-        />
-        <a
-          href="#"
-          class="text-danger bg-light/30 absolute top-2 left-2 rounded-full text-2xl transition hover:scale-125"
-        >
-          <icon-ic-round-cancel />
-        </a>
-      </div>
-      <div v-else class="relative h-full">
-        <input
-          id="image"
-          type="file"
-          accept="image/*"
-          name="image"
-          class="hidden"
-          @change="changeImage"
-        />
-
-        <label
-          for="image"
-          class="hover:bg-muted/10 hover:border-muted/10 border-primary/50 text-primary/50 flex h-full min-h-36 cursor-pointer items-center justify-center rounded-full border-4 border-dashed font-semibold transition"
-        >
-          <icon-ic-round-add-circle class="me-4 text-2xl" />
-          <span class="text-lg"> 新增頭像 </span>
-        </label>
-      </div>
+      <BaseUploadImage
+        :index="0"
+        :preview-image-url="image.previewImageUrl"
+        type="avatar"
+        class="h-full"
+        @update-image="updatePrevieImage"
+        @remove-image="removePrevieImage"
+      />
     </div>
 
     <div class="mb-4">
