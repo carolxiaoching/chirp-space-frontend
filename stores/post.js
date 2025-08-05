@@ -8,7 +8,7 @@ export const usePostStore = defineStore("post", () => {
   const authStore = useAuthStore();
   const { userInfo } = storeToRefs(authStore);
   const { openLoading, closeLoading } = useLoading();
-  const { apiLikePost, apiUnlikePost } = postAPI();
+  const { apiLikePost, apiUnlikePost, apiDeletePost } = postAPI();
   const { openModal } = useModal();
 
   // 按讚貼文/取消按讚貼文
@@ -51,7 +51,39 @@ export const usePostStore = defineStore("post", () => {
     }
   }
 
+  // 刪除貼文
+  async function deletePost(postId) {
+    if (!postId) {
+      pushToast({
+        message: "哎呀~ 資料錯誤",
+        status: "danger",
+      });
+      return null;
+    }
+
+    openLoading();
+
+    try {
+      const { data } = await apiDeletePost(postId);
+
+      pushToast({
+        message: data?.message || "已刪除貼文",
+        status: "success",
+      });
+      return postId;
+    } catch (err) {
+      pushToast({
+        message: err.response?._data?.message || "刪除貼文失敗",
+        status: "danger",
+      });
+      return null;
+    } finally {
+      closeLoading();
+    }
+  }
+
   return {
     updateLike,
+    deletePost,
   };
 });

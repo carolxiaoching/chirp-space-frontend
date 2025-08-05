@@ -4,7 +4,7 @@ import { postAPI } from "@/apis/post";
 const route = useRoute();
 
 const { apiGetAllPosts } = postAPI();
-const { updateLike } = usePostStore();
+const { updateLike, deletePost } = usePostStore();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
 const { intersectionObserver, unobserve } = userIntersectionObserver();
@@ -82,6 +82,21 @@ async function toggleLike({ actionType, postId }) {
   }
 }
 
+// 刪除貼文
+async function deletePostItem(postId) {
+  const data = await deletePost(postId);
+
+  if (!data) {
+    return;
+  }
+
+  // 修改本地 posts 資料 - 找到指定貼文並刪除
+  const postIndex = posts.value.findIndex((item) => item._id === postId);
+  if (postIndex !== -1) {
+    posts.value.splice(postIndex, 1);
+  }
+}
+
 // 清除搜尋
 async function clearSearch() {
   await navigateTo({
@@ -113,7 +128,11 @@ async function clearSearch() {
 
     <ul v-if="posts.length">
       <li v-for="post in posts" :key="post._id" class="mb-8 last:mb-0">
-        <PostCard :post="post" @update-like="toggleLike" />
+        <PostCard
+          :post="post"
+          @update-like="toggleLike"
+          @delete-post="deletePostItem"
+        />
       </li>
     </ul>
 

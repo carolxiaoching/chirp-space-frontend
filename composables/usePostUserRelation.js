@@ -2,6 +2,18 @@ export const usePostUserRelation = () => {
   const authStore = useAuthStore();
   const { userInfo } = storeToRefs(authStore);
 
+  // 是否是自己所有
+  const isSelfContent = (content) => {
+    const myId = userInfo.value?._id;
+    const userId = content?.user?._id;
+
+    if (!myId || !userId) {
+      return false;
+    }
+
+    return userId === myId;
+  };
+
   // 是否已按讚
   const isLikedContent = (content) => {
     const myId = userInfo.value?._id;
@@ -14,5 +26,5 @@ export const usePostUserRelation = () => {
     return likes.includes(myId);
   };
 
-  return { isLikedContent };
+  return { isSelfContent, isLikedContent };
 };

@@ -1,6 +1,6 @@
 <script setup>
 const { getFormatDate } = useTimeFormat();
-const { isLikedContent } = usePostUserRelation();
+const { isSelfContent, isLikedContent } = usePostUserRelation();
 
 defineProps({
   post: {
@@ -11,7 +11,7 @@ defineProps({
   },
 });
 
-defineEmits(["updateLike"]);
+defineEmits(["updateLike", "deletePost"]);
 </script>
 
 <template>
@@ -49,6 +49,22 @@ defineEmits(["updateLike"]);
             {{ post.user?.nickName }}
           </span>
         </NuxtLink>
+        <div v-if="isSelfContent(post)">
+          <BaseDropdownMenu>
+            <li class="mb-2 last:mb-0">
+              <a
+                href="#"
+                class="group itmes-center hover:bg-danger bg-light flex rounded-md px-10 py-2 hover:text-white"
+                @click.prevent="$emit('deletePost', post._id)"
+              >
+                <icon-ic-round-cancel
+                  class="text-danger me-4 text-2xl group-hover:text-white"
+                />
+                刪除貼文
+              </a>
+            </li>
+          </BaseDropdownMenu>
+        </div>
       </div>
 
       <div class="mb-6">
