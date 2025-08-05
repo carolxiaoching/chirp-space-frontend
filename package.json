@@ -20,6 +20,7 @@
     "@vee-validate/nuxt": "^4.15.1",
     "@vee-validate/rules": "^4.15.1",
     "@vee-validate/zod": "^4.15.1",
+    "dayjs": "^1.11.13",
     "eslint": "^9.32.0",
     "nuxt": "^3.17.7",
     "nuxt-headlessui": "^1.2.1",
