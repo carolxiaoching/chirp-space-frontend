@@ -9,6 +9,7 @@
 
 @layer components {
   /* 按鈕相關 */
+
   .btn {
     @apply inline-block cursor-pointer rounded-md border px-8 py-3 text-center shadow transition outline-none disabled:cursor-not-allowed disabled:shadow-none;
   }
@@ -35,5 +36,43 @@
 
   .btn-sm {
     @apply px-6 py-2 text-sm;
+  }
+
+  /* 表格相關 */
+
+  .form-label {
+    @apply mb-3 block;
+  }
+
+  .form-control {
+    @apply placeholder:text-muted focus:border-muted block w-full rounded-md border border-gray-300 bg-white px-4 py-3 focus:ring-4 focus:ring-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:bg-zinc-50;
+  }
+
+  /* alert */
+
+  .alert {
+    @apply flex items-center rounded-md border px-8 py-5;
+  }
+
+  .alert-danger {
+    @apply bg-danger/20 text-danger border-danger/20;
+  }
+
+  /* avatar */
+
+  .avatar {
+    @apply block size-12 rounded-full;
+  }
+
+  .avatar-default {
+    @apply bg-muted/60 flex items-center justify-center text-3xl text-white;
+  }
+
+  .avatar-sm {
+    @apply size-10;
+  }
+
+  .avatar-lg {
+    @apply size-16;
   }
 }

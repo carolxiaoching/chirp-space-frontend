@@ -12,6 +12,18 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "nuxt-headlessui",
     "unplugin-icons/nuxt",
+    [
+      "@vee-validate/nuxt",
+      {
+        // 啟用 auto imports
+        autoImports: true,
+        // 自訂 components 名稱
+        componentNames: {
+          Form: "VForm",
+          Field: "VField",
+        },
+      },
+    ],
   ],
   vite: {
     plugins: [
