@@ -1,6 +1,10 @@
 <script setup>
 import { postAPI } from "@/apis/post";
 
+useSeoMeta({
+  title: "啾文詳情 | 啾啾",
+});
+
 const route = useRoute();
 
 const { apiGetPost, apiGetPostComments, apiCreateComment } = postAPI();

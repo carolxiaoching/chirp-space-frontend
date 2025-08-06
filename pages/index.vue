@@ -1,6 +1,10 @@
 <script setup>
 import { postAPI } from "@/apis/post";
 
+useSeoMeta({
+  title: "話題總匯 | 啾啾",
+});
+
 const route = useRoute();
 
 const { apiGetAllPosts } = postAPI();

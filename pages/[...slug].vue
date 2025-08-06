@@ -2,6 +2,10 @@
 definePageMeta({
   layout: false,
 });
+
+useSeoMeta({
+  title: "找不到頁面 | 啾啾",
+});
 </script>
 
 <template>

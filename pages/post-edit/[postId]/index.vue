@@ -6,6 +6,10 @@ definePageMeta({
   middleware: "auth",
 });
 
+useSeoMeta({
+  title: "寫啾啾文 | 啾啾",
+});
+
 const { apiCreatePost } = postAPI();
 const { apiUploadImages } = imageAPI();
 const { openLoading, closeLoading } = useLoading();
