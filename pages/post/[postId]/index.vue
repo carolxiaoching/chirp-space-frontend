@@ -3,7 +3,7 @@ import { postAPI } from "@/apis/post";
 
 const route = useRoute();
 
-const { apiGetPost, apiGetPostComments } = postAPI();
+const { apiGetPost, apiGetPostComments, apiCreateComment } = postAPI();
 const { openLoading, closeLoading } = useLoading();
 const { getFormatDate } = useTimeFormat();
 const { updateLike, deletePost } = usePostStore();
@@ -48,6 +48,34 @@ async function deletePostItem(postId) {
 
   if (data) {
     await navigateTo("/");
+  }
+}
+
+// 新增評論
+async function createComment() {
+  if (message.value === "") {
+    return;
+  }
+
+  openLoading();
+
+  try {
+    const { data } = await apiCreateComment(id.value, {
+      content: message.value,
+    });
+
+    // 重置表單
+    formRef.value.resetForm();
+
+    comments.value.unshift(data);
+    post.value.commentsCount++;
+  } catch (err) {
+    pushToast({
+      message: err.response?._data?.message || "新增評論失敗",
+      status: "danger",
+    });
+  } finally {
+    closeLoading();
   }
 }
 
@@ -245,6 +273,7 @@ onMounted(async () => {
         v-slot="{ errors, meta }"
         ref="formRef"
         class="border-muted/50 items-bottom mb-8 flex border-b-1 pb-14"
+        @submit="createComment"
       >
         <div class="hidden xl:block">
           <img
