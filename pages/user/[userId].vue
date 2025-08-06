@@ -10,6 +10,8 @@ const memberId = ref("");
 const member = ref({});
 
 const { apiGetUserProfile } = userAPI();
+const { isFollowed } = usePostUserRelation();
+const { updateFollow } = useAuthStore();
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
 
@@ -57,14 +59,21 @@ onMounted(async () => {
 
       <div v-if="memberId !== userInfo?._id">
         <a
+          v-if="isFollowed(memberId)"
           href="#"
           class="btn btn-outline-primary btn-sm absolute top-8 right-8 mb-4"
+          @click.prevent="updateFollow({ actionType: 'unfollow', memberId })"
         >
           取消追蹤
         </a>
-        <!-- <a href="#" class="btn btn-primary btn-sm absolute top-8 right-8 mb-4">
+        <a
+          v-else
+          href="#"
+          class="btn btn-primary btn-sm absolute top-8 right-8 mb-4"
+          @click.prevent="updateFollow({ actionType: 'follow', memberId })"
+        >
           追蹤對方
-        </a> -->
+        </a>
       </div>
       <div
         class="mx-auto mb-8 flex min-h-16 max-w-2xl items-center justify-center"
