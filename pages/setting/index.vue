@@ -3,6 +3,10 @@ definePageMeta({
   middleware: "auth",
 });
 
+useSeoMeta({
+  title: "啾啾設定 | 啾啾",
+});
+
 const route = useRoute();
 
 const tab = ref("account");

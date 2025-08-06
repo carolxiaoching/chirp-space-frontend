@@ -5,6 +5,10 @@ definePageMeta({
   middleware: "guest",
 });
 
+useSeoMeta({
+  title: "登入啾啾 | 啾啾",
+});
+
 const { apiSignIn } = authAPI();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
