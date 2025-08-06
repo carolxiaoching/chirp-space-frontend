@@ -23,6 +23,18 @@ const commentPage = ref(1);
 const hasMoreData = ref(true);
 const loadRef = ref(null);
 
+const visibleRef = ref(false);
+const indexRef = ref(0);
+const postImages = computed(() => {
+  const images = post.value.images.map((item) => item.imageUrl);
+  return images;
+});
+const showImg = (index) => {
+  indexRef.value = index;
+  visibleRef.value = true;
+};
+const onHide = () => (visibleRef.value = false);
+
 // 按讚貼文/取消按讚貼文
 async function toggleLike({ actionType, postId }) {
   const data = await updateLike({ actionType, postId });
@@ -365,6 +377,17 @@ onMounted(async () => {
       >
         評論區空空的，就像沒啾啾的天空 ☁️
       </div>
+    </div>
+
+    <div v-if="postImages.length">
+      <VueEasyLightbox
+        :visible="visibleRef"
+        :imgs="postImages"
+        :index="indexRef"
+        :move-disabled="true"
+        :rotate-disabled="true"
+        @hide="onHide"
+      />
     </div>
   </div>
 </template>
