@@ -7,6 +7,7 @@ const { apiGetPost, apiGetPostComments, apiCreateComment } = postAPI();
 const { openLoading, closeLoading } = useLoading();
 const { getFormatDate } = useTimeFormat();
 const { updateLike, deletePost } = usePostStore();
+const { deleteComment } = useCommentStore();
 const { pushToast } = useToastStore();
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
@@ -48,6 +49,24 @@ async function deletePostItem(postId) {
 
   if (data) {
     await navigateTo("/");
+  }
+}
+
+// 刪除評論
+async function deleteCommentItem(commentId) {
+  const data = await deleteComment(commentId);
+
+  if (!data) {
+    return;
+  }
+
+  // 修改本地 comments 資料 - 找到指定評論並刪除
+  const commentIndex = comments.value.findIndex(
+    (item) => item._id === commentId,
+  );
+  if (commentIndex !== -1) {
+    comments.value.splice(commentIndex, 1);
+    post.value.commentsCount--;
   }
 }
 
@@ -329,7 +348,10 @@ onMounted(async () => {
           :key="comment._id"
           class="relative mb-8 last:mb-0"
         >
-          <PostCommentCard :comment="comment" />
+          <PostCommentCard
+            :comment="comment"
+            @delete-comment-item="deleteCommentItem"
+          />
         </li>
       </ul>
 
