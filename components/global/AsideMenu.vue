@@ -5,7 +5,7 @@ const { isSignedIn, userInfo } = storeToRefs(authStore);
 
 <template>
   <div
-    class="bg-light sticky top-[65px] hidden min-w-[20rem] self-start rounded-md px-8 py-8 xl:block"
+    class="bg-light sticky top-[65px] hidden min-w-[24rem] self-start rounded-md px-8 py-8 xl:block"
   >
     <div v-if="!isSignedIn || !userInfo?._id">
       <h2 class="mb-4 text-2xl">請先登入或註冊</h2>

@@ -26,5 +26,16 @@ export const usePostUserRelation = () => {
     return likes.includes(myId);
   };
 
-  return { isSelfContent, isLikedContent };
+  // 是否已追蹤
+  const isFollowed = (memberId) => {
+    const following = userInfo.value?.following;
+
+    if (!memberId || !following?.length) {
+      return false;
+    }
+
+    return following.some((item) => item.user === memberId);
+  };
+
+  return { isSelfContent, isLikedContent, isFollowed };
 };

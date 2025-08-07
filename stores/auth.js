@@ -1,6 +1,13 @@
 import { defineStore } from "pinia";
+import { authAPI } from "@/apis/auth";
+import { useLoading } from "@/composables/useLoading";
+import { useModal } from "@/composables/useModal";
 
 export const useAuthStore = defineStore("auth", () => {
+  const { pushToast } = useToastStore();
+  const { openLoading, closeLoading } = useLoading();
+  const { openModal } = useModal();
+
   const userInfo = ref(null);
   const authToken = useCookie("auth");
 
@@ -28,11 +35,74 @@ export const useAuthStore = defineStore("auth", () => {
     },
   );
 
+  // 追蹤/取消追蹤
+  async function updateFollow({ actionType, memberId }) {
+    if (!userInfo?.value) {
+      openModal("login");
+      return null;
+    }
+
+    if (!actionType || !memberId) {
+      pushToast({
+        message: "哎呀~ 資料錯誤",
+        status: "danger",
+      });
+      return null;
+    }
+
+    openLoading();
+
+    const apiMethod =
+      actionType === "follow"
+        ? authAPI().apiFollowUser
+        : authAPI().apiUnfollowUser;
+
+    try {
+      const { data } = await apiMethod(memberId);
+
+      if (actionType === "follow") {
+        userInfo.value.following.push({
+          user: memberId,
+          createdAt: new Date().toISOString(),
+        });
+        userInfo.value.followingCount++;
+      } else {
+        const index = userInfo.value.following.findIndex(
+          (item) => item.user === memberId,
+        );
+        if (index !== -1) {
+          userInfo.value.following.splice(index, 1);
+          userInfo.value.followingCount--;
+        }
+      }
+
+      pushToast({
+        message:
+          data.message ||
+          `${actionType === "follow" ? "追蹤" : "取消追蹤"}成功`,
+        status: "success",
+      });
+
+      return data;
+    } catch (err) {
+      pushToast({
+        message:
+          err.response?._data?.message ||
+          `${actionType === "follow" ? "追蹤" : "取消追蹤"}失敗`,
+        status: "danger",
+      });
+      return null;
+    } finally {
+      closeLoading();
+    }
+  }
+
   return {
     authToken,
     userInfo,
     isSignedIn,
     setAuth,
     clearAuth,
+    updateFollow,
   };
 });

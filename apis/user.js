@@ -34,19 +34,25 @@ export const userAPI = () => {
     });
   }
 
-  function apiGetUserFollowing(userId, query) {
+  function apiGetUserFollowing(userId, query = {}) {
     return $fetch(`api/user/${userId}/following`, {
       baseURL: apiUrl,
       method: "GET",
-      query,
+      query: {
+        perPage: 6,
+        ...query,
+      },
     });
   }
 
-  function apiGetUserFollowers(userId, query) {
+  function apiGetUserFollowers(userId, query = {}) {
     return $fetch(`api/user/${userId}/followers`, {
       baseURL: apiUrl,
       method: "GET",
-      query,
+      query: {
+        perPage: 6,
+        ...query,
+      },
     });
   }
 
