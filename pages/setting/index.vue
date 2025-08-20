@@ -58,15 +58,12 @@ onMounted(() => {
     </div>
 
     <ul>
-      <li
-        v-if="tab === 'account'"
-        class="bg-light relative mb-4 rounded-md p-8"
-      >
+      <li v-if="tab === 'account'" class="bg-light relative rounded-md p-8">
         <SettingUpdateAccount />
       </li>
       <li
         v-if="tab === 'updatePassword'"
-        class="bg-light relative mb-4 rounded-md p-8"
+        class="bg-light relative rounded-md p-8"
       >
         <SettingUpdatePassword />
       </li>

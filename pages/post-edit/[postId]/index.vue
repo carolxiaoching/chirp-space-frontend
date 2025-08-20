@@ -94,7 +94,7 @@ async function createPost() {
     <VForm
       v-slot="{ errors, meta }"
       ref="formRef"
-      class="bg-light relative mb-4 rounded-md p-8"
+      class="bg-light relative rounded-md p-8"
       @submit="createPost"
     >
       <p v-if="errorMsg" class="alert alert-danger mb-8">
