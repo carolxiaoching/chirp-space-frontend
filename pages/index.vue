@@ -28,9 +28,9 @@ watch(
       page.value = 1;
       hasMoreData.value = true;
       loadRef.value = null;
-      await getAllPosts();
 
       unobserve(); // 先取消滾動監聽，避免重複綁定
+      await getAllPosts();
       intersectionObserver(loadRef.value, getAllPosts, hasMoreData);
     }
   },
