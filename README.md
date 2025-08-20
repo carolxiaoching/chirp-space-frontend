@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/carolxiaoching/chrip-space-frontend/refs/heads/develop/assets/images/logo.svg" alt="logo" width="300">
+  <img src="https://raw.githubusercontent.com/carolxiaoching/chrip-space-frontend/refs/heads/develop/assets/images/logo.svg" alt="logo" width="150">
 </p>
 
 <h1 align="center">啾啾 | 社群平台</h1>
@@ -25,6 +25,7 @@
 ## 📒 專案簡介
 
 「啾啾」是一個輕量型社群分享平台，大家可以新增貼文、上傳圖片、發表評論互動、追蹤其他會員，並使用無限滾動瀏覽內容
+
 整體介面以直覺、好上手為設計核心，讓使用者能輕鬆分享生活，並與他人建立連結
 
 ![cover](https://i.postimg.cc/qM9wbrr6/cover.png)
