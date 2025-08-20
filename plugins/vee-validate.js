@@ -8,14 +8,6 @@ export default defineNuxtPlugin(() => {
     defineRule(name, rule);
   });
 
-  defineRule("nickName", (value) => {
-    const isInvalid = !/^[a-zA-Z0-9_]{2,10}$/i.test(value);
-    if (isInvalid) {
-      return "使用者暱稱只能包含字母、數字或底線，且長度需為 2 至 10 個字元";
-    }
-    return true;
-  });
-
   defineRule("password", (value) => {
     const isInvalid = !/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i.test(value);
     if (value.length < 8 || isInvalid) {

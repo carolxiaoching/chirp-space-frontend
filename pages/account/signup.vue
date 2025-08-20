@@ -115,7 +115,7 @@ async function signup() {
           'border-danger border-2': errors['暱稱'],
         }"
         placeholder="請輸入暱稱"
-        rules="nickName|required"
+        rules="min:2|max:10|required"
         required
         autocomplete="username"
       />
