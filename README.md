@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://chrip-space-frontend.onrender.com">
+  <a href="https://chrip-space-frontend.zeabur.app">
   👉 查看 Demo
   </a>
 </p>
@@ -135,10 +135,10 @@ npm run build
 
 ## 📁 專案結構
 
-| 專案     | 連結                                                                                                                       |
-| -------- | -------------------------------------------------------------------------------------------------------------------------- |
-| 前端前台 | [GitHub Repo](https://github.com/carolxiaoching/chrip-space-frontend) 🌞 [Demo](https://chrip-space-frontend.onrender.com) |
-| 後端     | [GitHub Repo](https://github.com/carolxiaoching/chrip-space-backend)                                                       |
+| 專案     | 連結                                                                                                                     |
+| -------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 前端前台 | [GitHub Repo](https://github.com/carolxiaoching/chrip-space-frontend) 🌞 [Demo](https://chrip-space-frontend.zeabur.app) |
+| 後端     | [GitHub Repo](https://github.com/carolxiaoching/chrip-space-backend)                                                     |
 
 ## 📷 圖片來源
 
