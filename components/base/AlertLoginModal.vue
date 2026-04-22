@@ -18,7 +18,7 @@ function closeLoginModal() {
 
 <template>
   <TransitionRoot appear :show="isLoginModalOpen" as="template">
-    <Dialog as="div" class="relative z-999" @close="closeLoginModal">
+    <Dialog as="div" class="relative z-[999]" @close="closeLoginModal">
       <TransitionChild
         as="template"
         enter="duration-300 ease-out"

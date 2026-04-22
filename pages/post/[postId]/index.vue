@@ -228,7 +228,7 @@ onMounted(async () => {
             <li class="mb-2 last:mb-0">
               <a
                 href="#"
-                class="group itmes-center hover:bg-danger bg-light flex rounded-md px-10 py-2 hover:text-white"
+                class="group hover:bg-danger bg-light flex items-center rounded-md px-10 py-2 hover:text-white"
                 @click.prevent="deletePostItem(post._id)"
               >
                 <icon-ic-round-cancel

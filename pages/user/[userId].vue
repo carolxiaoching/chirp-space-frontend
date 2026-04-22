@@ -40,7 +40,7 @@ onMounted(async () => {
   <div v-if="member._id">
     <div class="bg-light relative mb-8 rounded-md px-4 py-8 xl:px-8">
       <div class="absolute top-6 left-8 text-5xl text-gray-200">
-        <img src="assets/images/logo-single.svg" alt="logo" class="size-16" />
+        <img src="~/assets/images/logo-single.svg" alt="logo" class="size-16" />
       </div>
 
       <div class="mb-4 flex items-center justify-center">
@@ -84,7 +84,7 @@ onMounted(async () => {
         >
           {{ member.description }}
         </p>
-        <p v-else class="text-muted tleading-8 tracking-wide">
+        <p v-else class="text-muted leading-8 tracking-wide">
           這位啾友好像忘了寫自我介紹，還是偷偷藏起來了？
         </p>
       </div>

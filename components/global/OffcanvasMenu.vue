@@ -64,7 +64,7 @@ onMounted(() => {
     >
       <div
         v-if="isOffcanvasOpen"
-        class="fixed inset-0 z-990 bg-black/40"
+        class="fixed inset-0 z-[990] bg-black/40"
         @click="closeOffcanvas"
       />
     </transition>
@@ -79,7 +79,7 @@ onMounted(() => {
     >
       <div
         v-if="isOffcanvasOpen"
-        class="fixed top-0 right-0 z-995 flex h-full w-82 flex-col overflow-auto bg-white px-4 py-6 shadow-lg"
+        class="fixed top-0 right-0 z-[995] flex h-full w-82 flex-col overflow-auto bg-white px-4 py-6 shadow-lg"
       >
         <a
           href="#"
