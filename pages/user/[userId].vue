@@ -1,6 +1,11 @@
 <script setup>
 import { userAPI } from "@/apis/user";
 
+// 解決頁面切換 userId 資料不更新
+definePageMeta({
+  key: (route) => route.params.userId,
+});
+
 useSeoMeta({
   title: "啾友小窩 | 啾啾",
 });

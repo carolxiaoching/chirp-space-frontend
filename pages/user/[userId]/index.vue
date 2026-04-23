@@ -1,6 +1,11 @@
 <script setup>
 import { userAPI } from "@/apis/user";
 
+// 路由切換時強制更新
+definePageMeta({
+  key: (route) => route.fullPath,
+});
+
 const route = useRoute();
 
 const { apiGetUserAllPosts } = userAPI();
