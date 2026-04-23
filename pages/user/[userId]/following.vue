@@ -10,7 +10,7 @@ const { pushToast } = useToastStore();
 const { updateFollow } = useAuthStore();
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
-const { intersectionObserver } = userIntersectionObserver();
+const { intersectionObserver } = useIntersectionObserver();
 
 const memberId = ref("");
 const following = ref([]);

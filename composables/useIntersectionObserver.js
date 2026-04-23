@@ -1,6 +1,6 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
 
-export const userIntersectionObserver = () => {
+export const useIntersectionObserver = () => {
   // IntersectionObserver 實體
   const observer = ref(null);
   // 是否已進入可視範圍
@@ -34,7 +34,7 @@ export const userIntersectionObserver = () => {
 
           // 若沒有資料了，則停止觀察
           if (!hasMoreRef.value) {
-            observer.value.unobserve(el);
+            unobserve();
           }
         });
       },
@@ -50,8 +50,9 @@ export const userIntersectionObserver = () => {
 
   // 停止觀察
   const unobserve = () => {
-    if (observer.value && elRef.value) {
-      observer.value.unobserve(elRef.value);
+    if (observer.value) {
+      observer.value.disconnect();
+      observer.value = null;
     }
   };
 

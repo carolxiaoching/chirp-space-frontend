@@ -9,7 +9,7 @@ const { apiGetUserComments } = userAPI();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
 const { deleteComment } = useCommentStore();
-const { intersectionObserver } = userIntersectionObserver();
+const { intersectionObserver } = useIntersectionObserver();
 
 const memberId = ref("");
 const comments = ref([]);

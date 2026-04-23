@@ -16,7 +16,7 @@ const { pushToast } = useToastStore();
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
 const { isSelfContent, isLikedContent } = usePostUserRelation();
-const { intersectionObserver } = userIntersectionObserver();
+const { intersectionObserver } = useIntersectionObserver();
 
 const id = ref("");
 const post = ref({});

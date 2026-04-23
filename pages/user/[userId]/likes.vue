@@ -7,7 +7,7 @@ const { apiGetUserLikedPosts } = userAPI();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
 const { updateLike, deletePost } = usePostStore();
-const { intersectionObserver } = userIntersectionObserver();
+const { intersectionObserver } = useIntersectionObserver();
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
 

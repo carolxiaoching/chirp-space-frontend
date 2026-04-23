@@ -11,7 +11,7 @@ const { apiGetAllPosts } = postAPI();
 const { updateLike, deletePost } = usePostStore();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
-const { intersectionObserver, unobserve } = userIntersectionObserver();
+const { intersectionObserver, unobserve } = useIntersectionObserver();
 
 const keyword = ref("");
 const posts = ref([]);
@@ -27,10 +27,10 @@ watch(
       posts.value = [];
       page.value = 1;
       hasMoreData.value = true;
-      loadRef.value = null;
 
       unobserve(); // 先取消滾動監聽，避免重複綁定
-      await getAllPosts();
+      await getAllPosts(); // 取得新貼文資料並更新響應式狀態
+      await nextTick(); // 等待 DOM 更新完，Vue 會自動更新 loadRef
       intersectionObserver(loadRef.value, getAllPosts, hasMoreData);
     }
   },
