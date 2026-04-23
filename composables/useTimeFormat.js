@@ -23,7 +23,7 @@ export const useTimeFormat = () => {
     const diffMonth = now.diff(date, "month");
 
     if (diffMinute < 60) {
-      str = `${diffMinute || 1} 分鐘前`;
+      str = "剛剛";
     } else if (diffHour < 24) {
       str = `${diffHour || 1} 小時前`;
     } else if (diffDay < 30) {
