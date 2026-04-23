@@ -9,6 +9,11 @@ export const useIntersectionObserver = () => {
   const elRef = ref(null);
 
   const intersectionObserver = (el, loadMoreFn, hasMoreRef) => {
+    // 若已存在 IntersectionObserver 實體，先斷開以避免重複綁定
+    if (observer.value) {
+      observer.value.disconnect();
+    }
+
     // 如果沒有傳入 DOM 元素就不執行
     if (!el) return;
 
@@ -18,7 +23,8 @@ export const useIntersectionObserver = () => {
     // 建立 IntersectionObserver 實體
     observer.value = new IntersectionObserver(
       async (entries) => {
-        entries.forEach(async (item) => {
+        // 改用 for...of 使 await 生效，避免 forEach 不等待 async 造成重複請求
+        for (const item of entries) {
           // 是否進入可視範圍
           const isVisible = item.isIntersecting;
           isIntersection.value = isVisible;
@@ -36,7 +42,7 @@ export const useIntersectionObserver = () => {
           if (!hasMoreRef.value) {
             unobserve();
           }
-        });
+        }
       },
       {
         root: null, // 監控整個頁面
