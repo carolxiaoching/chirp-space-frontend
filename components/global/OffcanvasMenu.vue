@@ -3,7 +3,7 @@ const { isOffcanvasOpen, closeOffcanvas } = useOffcanvas();
 
 const authStore = useAuthStore();
 const { isSignedIn, userInfo } = storeToRefs(authStore);
-const { clearAuth } = authStore;
+const { logout } = authStore;
 
 const searchText = ref("");
 
@@ -64,7 +64,7 @@ onMounted(() => {
     >
       <div
         v-if="isOffcanvasOpen"
-        class="fixed inset-0 z-990 bg-black/40"
+        class="fixed inset-0 z-[990] bg-black/40"
         @click="closeOffcanvas"
       />
     </transition>
@@ -79,12 +79,12 @@ onMounted(() => {
     >
       <div
         v-if="isOffcanvasOpen"
-        class="fixed top-0 right-0 z-995 flex h-full w-82 flex-col overflow-auto bg-white px-4 py-6 shadow-lg"
+        class="fixed top-0 right-0 z-[995] flex h-full w-82 flex-col overflow-auto bg-white px-4 py-6 shadow-lg"
       >
         <a
           href="#"
           class="text-muted hover:bg-light mb-4 ml-auto inline-block rounded p-2 text-3xl hover:cursor-pointer"
-          @click="closeOffcanvas"
+          @click.prevent="closeOffcanvas"
         >
           <icon-ic-outline-close />
         </a>
@@ -211,8 +211,7 @@ onMounted(() => {
               <a
                 href="#"
                 class="hover:bg-muted bg-light flex items-center justify-center rounded-md p-4 hover:text-white"
-                @click.prevent="clearAuth"
-                @click="closeOffcanvas"
+                @click.prevent="(closeOffcanvas(), logout())"
               >
                 <icon-ic-round-logout class="me-2" />
                 登出

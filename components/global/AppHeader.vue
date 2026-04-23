@@ -4,7 +4,7 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 const { openOffcanvas } = useOffcanvas();
 const authStore = useAuthStore();
 const { isSignedIn, userInfo } = storeToRefs(authStore);
-const { clearAuth } = authStore;
+const { logout } = authStore;
 
 const searchText = ref("");
 
@@ -26,10 +26,10 @@ async function search() {
 </script>
 
 <template>
-  <header class="border-light fixed inset-x-0 top-0 z-100 border-b bg-white">
+  <header class="border-light fixed inset-x-0 top-0 z-[100] border-b bg-white">
     <div class="container mx-auto flex items-center justify-between py-2">
       <NuxtLink to="/" class="block">
-        <img src="assets/images/logo.svg" alt="logo" />
+        <img src="~/assets/images/logo.svg" alt="logo" />
       </NuxtLink>
 
       <div class="relative xl:hidden">
@@ -144,7 +144,7 @@ async function search() {
                     active ? 'bg-primary text-white' : 'text-primary',
                     'flex w-full items-center rounded-md px-3 py-2',
                   ]"
-                  @click.prevent="clearAuth"
+                  @click.prevent="logout"
                 >
                   <icon-ic-round-logout class="me-2" />
                   登出

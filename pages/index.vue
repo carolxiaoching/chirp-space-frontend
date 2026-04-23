@@ -11,7 +11,7 @@ const { apiGetAllPosts } = postAPI();
 const { updateLike, deletePost } = usePostStore();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
-const { intersectionObserver, unobserve } = userIntersectionObserver();
+const { intersectionObserver, unobserve } = useIntersectionObserver();
 
 const keyword = ref("");
 const posts = ref([]);
@@ -27,10 +27,10 @@ watch(
       posts.value = [];
       page.value = 1;
       hasMoreData.value = true;
-      loadRef.value = null;
 
       unobserve(); // 先取消滾動監聽，避免重複綁定
-      await getAllPosts();
+      await getAllPosts(); // 取得新貼文資料並更新響應式狀態
+      await nextTick(); // 等待 DOM 更新完，Vue 會自動更新 loadRef
       intersectionObserver(loadRef.value, getAllPosts, hasMoreData);
     }
   },
@@ -41,13 +41,19 @@ watch(
 async function getAllPosts() {
   openLoading();
 
+  const fetchKeyword = keyword.value;
+
   const params = {
     page: page.value,
-    keyword: keyword.value ? keyword.value : null,
+    keyword: fetchKeyword ? fetchKeyword : null,
   };
 
   try {
     const { data } = await apiGetAllPosts(params);
+
+    // 避免關鍵字已經更換，但之前的請求才完成，導致資料錯亂
+    if (keyword.value !== fetchKeyword) return;
+
     posts.value.push(...data.posts);
 
     if (data.pagination?.hasNext) {
@@ -56,6 +62,7 @@ async function getAllPosts() {
       hasMoreData.value = false;
     }
   } catch (err) {
+    hasMoreData.value = false;
     pushToast({
       message: err.response?._data?.message || "取得所有貼文失敗",
       status: "danger",
@@ -75,6 +82,8 @@ async function toggleLike({ actionType, postId }) {
 
   // 修改本地 posts 資料，找到指定貼文並修改其 likes 陣列與 likesCount
   const post = posts.value.find((item) => item._id === postId);
+  // watch keyword 變更時會重置 posts，避免 post 找不到時仍操作 likes 會報錯
+  if (!post) return;
   const index = post.likes.indexOf(data.targetUserId);
 
   if (actionType === "like" && index === -1) {
@@ -146,10 +155,18 @@ async function clearSearch() {
 
     <!-- 若沒有貼文 -->
     <div v-if="!posts.length && !hasMoreData" class="bg-light rounded-md p-8">
-      <p class="text-muted mb-4 text-center text-xl">
-        目前還沒有人開啟啾啾話題～ 🤐
-      </p>
-      <p class="text-muted/70 text-center">你要來當第一個嗎？</p>
+      <template v-if="keyword">
+        <p class="text-muted mb-4 text-center text-xl">
+          找不到「{{ keyword }}」相關的啾啾話題 🔍
+        </p>
+        <p class="text-muted/70 text-center">換個關鍵字試試看？</p>
+      </template>
+      <template v-else>
+        <p class="text-muted mb-4 text-center text-xl">
+          目前還沒有人開啟啾啾話題～ 🤐
+        </p>
+        <p class="text-muted/70 text-center">你要來當第一個嗎？</p>
+      </template>
     </div>
   </div>
 </template>

@@ -12,7 +12,6 @@ const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
 
 const formRef = ref(null);
-const errorMsg = ref("");
 const user = ref({
   email: "",
   nickName: "",
@@ -35,6 +34,17 @@ async function updateAccount() {
     // 如果有更新頭像，則上傳圖片
     const file = image.value.file;
     if (file) {
+      // 限制頭像大小不可超過 1MB
+      const MAX_SIZE = 1 * 1024 * 1024;
+      if (file.size > MAX_SIZE) {
+        pushToast({
+          message: "頭像大小不可超過 1MB",
+          status: "danger",
+        });
+        closeLoading();
+        return;
+      }
+
       const formData = new FormData();
       formData.append("images", file);
 
@@ -95,6 +105,13 @@ function removePrevieImage() {
 
   image.value = { file: null, previewImageUrl: "" };
 }
+
+// 解決用戶選了圖片後直接離開頁面，不會觸發 remove，URL 就永遠不會被釋放
+onBeforeUnmount(() => {
+  if (image.value.previewImageUrl) {
+    URL.revokeObjectURL(image.value.previewImageUrl);
+  }
+});
 </script>
 
 <template>
@@ -104,12 +121,6 @@ function removePrevieImage() {
     class="mx-auto lg:max-w-3/4"
     @submit="updateAccount"
   >
-    <p v-if="errorMsg" class="alert alert-danger mb-8">
-      <icon-ic-round-warning class="me-4 text-2xl" />
-
-      {{ errorMsg }}
-    </p>
-
     <div class="mx-auto mb-8 size-[16rem]">
       <BaseUploadImage
         :index="0"
@@ -178,10 +189,7 @@ function removePrevieImage() {
     </div>
 
     <div class="mb-11">
-      <label for="description" class="form-label">
-        <span class="text-danger">*</span>
-        自我介紹
-      </label>
+      <label for="description" class="form-label"> 自我介紹 </label>
 
       <VField
         id="description"
@@ -195,8 +203,6 @@ function removePrevieImage() {
         :class="{
           'border-danger border-2': errors['自我介紹'],
         }"
-        rules="required"
-        required
       />
 
       <ErrorMessage name="自我介紹" class="text-danger mt-1 block" />

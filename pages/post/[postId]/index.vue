@@ -16,7 +16,7 @@ const { pushToast } = useToastStore();
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
 const { isSelfContent, isLikedContent } = usePostUserRelation();
-const { intersectionObserver } = userIntersectionObserver();
+const { intersectionObserver } = useIntersectionObserver();
 
 const id = ref("");
 const post = ref({});
@@ -30,7 +30,7 @@ const loadRef = ref(null);
 const visibleRef = ref(false);
 const indexRef = ref(0);
 const postImages = computed(() => {
-  const images = post.value.images.map((item) => item.imageUrl);
+  const images = post.value.images?.map((item) => item.imageUrl) || [];
   return images;
 });
 const showImg = (index) => {
@@ -48,7 +48,7 @@ async function toggleLike({ actionType, postId }) {
   }
 
   // 修改本地 post 資料並修改其 likes 陣列與 likesCount
-  const index = post.value.likes.indexOf(data.targetUserId);
+  const index = post.value.likes?.indexOf(data.targetUserId);
 
   if (actionType === "like" && index === -1) {
     post.value.likes.push(data.targetUserId);
@@ -129,6 +129,7 @@ async function getData() {
       hasMoreData.value = false;
     }
   } catch (err) {
+    hasMoreData.value = false;
     pushToast({
       message: err.response?._data?.message || "取得貼文失敗",
       status: "danger",
@@ -156,6 +157,7 @@ async function getPostComments() {
       hasMoreData.value = false;
     }
   } catch (err) {
+    hasMoreData.value = false;
     pushToast({
       message: err.response?._data?.message || "取得所有評論失敗",
       status: "danger",
@@ -228,7 +230,7 @@ onMounted(async () => {
             <li class="mb-2 last:mb-0">
               <a
                 href="#"
-                class="group itmes-center hover:bg-danger bg-light flex rounded-md px-10 py-2 hover:text-white"
+                class="group hover:bg-danger bg-light flex items-center rounded-md px-10 py-2 hover:text-white"
                 @click.prevent="deletePostItem(post._id)"
               >
                 <icon-ic-round-cancel
@@ -246,7 +248,7 @@ onMounted(async () => {
           {{ post.content }}
         </div>
 
-        <ul v-if="post.images.length" class="flex h-[16rem] gap-4">
+        <ul v-if="post.images?.length" class="flex h-[16rem] gap-4">
           <li
             v-for="(image, index) in post.images"
             :key="image._id"

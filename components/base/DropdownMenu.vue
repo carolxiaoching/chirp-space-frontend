@@ -15,7 +15,7 @@
       leave-from-class="translate-y-0 opacity-100"
       leave-to-class="translate-y-1 opacity-0"
     >
-      <PopoverPanel class="absolute top-12 right-0 z-800 transform">
+      <PopoverPanel class="absolute top-12 right-0 z-[800] transform">
         <ul class="overflow-hidden rounded-lg bg-white p-2 shadow">
           <slot />
         </ul>

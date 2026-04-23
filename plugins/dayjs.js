@@ -9,7 +9,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive("dateTime", {
     mounted(el, binding) {
       const time = dayjs(binding.value).format("YYYY 年 MM 月 DD 日 dddd");
-      el.innerHTML = time;
+      el.textContent = time;
     },
   });
 });

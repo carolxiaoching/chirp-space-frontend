@@ -1,6 +1,11 @@
 <script setup>
 import { userAPI } from "@/apis/user";
 
+// 路由切換時強制更新
+definePageMeta({
+  key: (route) => route.fullPath,
+});
+
 const route = useRoute();
 
 const { isFollowed } = usePostUserRelation();
@@ -10,7 +15,7 @@ const { pushToast } = useToastStore();
 const { updateFollow } = useAuthStore();
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
-const { intersectionObserver } = userIntersectionObserver();
+const { intersectionObserver } = useIntersectionObserver();
 
 const memberId = ref("");
 const following = ref([]);
@@ -34,8 +39,9 @@ async function getUserFollowing() {
       hasMoreData.value = false;
     }
   } catch (err) {
+    hasMoreData.value = false;
     pushToast({
-      message: err.response?._data?.message || "取得所有貼文失敗",
+      message: err.response?._data?.message || "取得追蹤清單失敗",
       status: "danger",
     });
   } finally {
@@ -48,7 +54,7 @@ async function toggleFollow({ actionType, userId }) {
   const data = await updateFollow({ actionType, memberId: userId });
 
   // 如果錯誤或不是自己的追蹤資料則返回
-  if (!data || userInfo.value._id !== memberId.value) {
+  if (!data || userInfo.value?._id !== memberId.value) {
     return;
   }
 
@@ -97,9 +103,9 @@ onMounted(async () => {
             </span>
 
             <div class="text-muted">
-              <a href="#" class="hover:text-muted/80 mb-2 block">
+              <span class="hover:text-muted/80 mb-2 block">
                 {{ follow.nickName }}
-              </a>
+              </span>
             </div>
           </NuxtLink>
           <div v-if="follow._id !== userInfo?._id">

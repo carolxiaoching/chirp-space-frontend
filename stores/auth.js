@@ -25,6 +25,11 @@ export const useAuthStore = defineStore("auth", () => {
     authToken.value = null;
   }
 
+  async function logout() {
+    clearAuth();
+    await navigateTo("/");
+  }
+
   // 監聽 token，若 token 不存在則清除帳號資料
   watch(
     () => authToken.value,
@@ -61,6 +66,9 @@ export const useAuthStore = defineStore("auth", () => {
       const { data } = await apiMethod(memberId);
 
       if (actionType === "follow") {
+        if (!Array.isArray(userInfo.value.following)) {
+          userInfo.value.following = [];
+        }
         userInfo.value.following.push({
           user: memberId,
           createdAt: new Date().toISOString(),
@@ -103,6 +111,7 @@ export const useAuthStore = defineStore("auth", () => {
     isSignedIn,
     setAuth,
     clearAuth,
+    logout,
     updateFollow,
   };
 });

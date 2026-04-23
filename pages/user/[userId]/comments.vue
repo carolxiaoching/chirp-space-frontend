@@ -1,6 +1,11 @@
 <script setup>
 import { userAPI } from "@/apis/user";
 
+// 路由切換時強制更新
+definePageMeta({
+  key: (route) => route.fullPath,
+});
+
 const route = useRoute();
 
 const { getTimeDiff } = useTimeFormat();
@@ -9,7 +14,7 @@ const { apiGetUserComments } = userAPI();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
 const { deleteComment } = useCommentStore();
-const { intersectionObserver } = userIntersectionObserver();
+const { intersectionObserver } = useIntersectionObserver();
 
 const memberId = ref("");
 const comments = ref([]);
@@ -34,8 +39,9 @@ async function getUserComments() {
       hasMoreData.value = false;
     }
   } catch (err) {
+    hasMoreData.value = false;
     pushToast({
-      message: err.response?._data?.message || "取得所有貼文失敗",
+      message: err.response?._data?.message || "取得所有評論失敗",
       status: "danger",
     });
   } finally {
@@ -96,9 +102,9 @@ onMounted(async () => {
             </span>
 
             <div class="text-muted">
-              <a href="#" class="hover:text-muted/80 mb-2 block">
+              <span class="hover:text-muted/80 mb-2 block">
                 {{ comment.user?.nickName }}
-              </a>
+              </span>
 
               <p class="text-sm">{{ getTimeDiff(comment.createdAt) }}</p>
             </div>
@@ -109,7 +115,7 @@ onMounted(async () => {
               <li class="mb-2 last:mb-0">
                 <a
                   href="#"
-                  class="group itmes-center hover:bg-danger bg-light flex rounded-md px-10 py-2 hover:text-white"
+                  class="group hover:bg-danger bg-light flex items-center rounded-md px-10 py-2 hover:text-white"
                   @click.prevent="deleteCommentItem(comment._id)"
                 >
                   <icon-ic-round-cancel

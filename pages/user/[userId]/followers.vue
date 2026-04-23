@@ -1,6 +1,11 @@
 <script setup>
 import { userAPI } from "@/apis/user";
 
+// 路由切換時強制更新
+definePageMeta({
+  key: (route) => route.fullPath,
+});
+
 const route = useRoute();
 
 const { isFollowed } = usePostUserRelation();
@@ -10,7 +15,7 @@ const { pushToast } = useToastStore();
 const { updateFollow } = useAuthStore();
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
-const { intersectionObserver } = userIntersectionObserver();
+const { intersectionObserver } = useIntersectionObserver();
 
 const memberId = ref("");
 const followers = ref([]);
@@ -35,8 +40,9 @@ async function getUserFollowers() {
       hasMoreData.value = false;
     }
   } catch (err) {
+    hasMoreData.value = false;
     pushToast({
-      message: err.response?._data?.message || "取得所有貼文失敗",
+      message: err.response?._data?.message || "取得粉絲清單失敗",
       status: "danger",
     });
   } finally {
@@ -79,9 +85,9 @@ onMounted(async () => {
             </span>
 
             <div class="text-muted">
-              <a href="#" class="hover:text-muted/80 mb-2 block">
+              <span class="hover:text-muted/80 mb-2 block">
                 {{ follower.nickName }}
-              </a>
+              </span>
             </div>
           </NuxtLink>
           <div v-if="follower._id !== userInfo?._id">

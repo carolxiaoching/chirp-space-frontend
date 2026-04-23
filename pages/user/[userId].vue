@@ -1,6 +1,11 @@
 <script setup>
 import { userAPI } from "@/apis/user";
 
+// 解決頁面切換 userId 資料不更新
+definePageMeta({
+  key: (route) => route.params.userId,
+});
+
 useSeoMeta({
   title: "啾友小窩 | 啾啾",
 });
@@ -12,16 +17,24 @@ const member = ref({});
 const { apiGetUserProfile } = userAPI();
 const { isFollowed } = usePostUserRelation();
 const { updateFollow } = useAuthStore();
+const { pushToast } = useToastStore();
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
 
 async function getUserProfile() {
-  const data = await apiGetUserProfile(memberId.value);
-
-  if (data.status === "success") {
-    member.value = data.data;
-  } else {
-    // 跳轉首頁
+  try {
+    const data = await apiGetUserProfile(memberId.value);
+    if (data.status === "success") {
+      member.value = data.data;
+    } else {
+      // 跳轉首頁
+      await navigateTo("/");
+    }
+  } catch (err) {
+    pushToast({
+      message: err.response?._data?.message || "取得用戶資料失敗",
+      status: "danger",
+    });
     await navigateTo("/");
   }
 }
@@ -40,7 +53,7 @@ onMounted(async () => {
   <div v-if="member._id">
     <div class="bg-light relative mb-8 rounded-md px-4 py-8 xl:px-8">
       <div class="absolute top-6 left-8 text-5xl text-gray-200">
-        <img src="assets/images/logo-single.svg" alt="logo" class="size-16" />
+        <img src="~/assets/images/logo-single.svg" alt="logo" class="size-16" />
       </div>
 
       <div class="mb-4 flex items-center justify-center">
@@ -84,7 +97,7 @@ onMounted(async () => {
         >
           {{ member.description }}
         </p>
-        <p v-else class="text-muted tleading-8 tracking-wide">
+        <p v-else class="text-muted leading-8 tracking-wide">
           這位啾友好像忘了寫自我介紹，還是偷偷藏起來了？
         </p>
       </div>

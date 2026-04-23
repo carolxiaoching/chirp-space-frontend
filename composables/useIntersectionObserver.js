@@ -1,6 +1,6 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
 
-export const userIntersectionObserver = () => {
+export const useIntersectionObserver = () => {
   // IntersectionObserver 實體
   const observer = ref(null);
   // 是否已進入可視範圍
@@ -9,6 +9,11 @@ export const userIntersectionObserver = () => {
   const elRef = ref(null);
 
   const intersectionObserver = (el, loadMoreFn, hasMoreRef) => {
+    // 若已存在 IntersectionObserver 實體，先斷開以避免重複綁定
+    if (observer.value) {
+      observer.value.disconnect();
+    }
+
     // 如果沒有傳入 DOM 元素就不執行
     if (!el) return;
 
@@ -18,7 +23,8 @@ export const userIntersectionObserver = () => {
     // 建立 IntersectionObserver 實體
     observer.value = new IntersectionObserver(
       async (entries) => {
-        entries.forEach(async (item) => {
+        // 改用 for...of 使 await 生效，避免 forEach 不等待 async 造成重複請求
+        for (const item of entries) {
           // 是否進入可視範圍
           const isVisible = item.isIntersecting;
           isIntersection.value = isVisible;
@@ -34,9 +40,9 @@ export const userIntersectionObserver = () => {
 
           // 若沒有資料了，則停止觀察
           if (!hasMoreRef.value) {
-            observer.value.unobserve(el);
+            unobserve();
           }
-        });
+        }
       },
       {
         root: null, // 監控整個頁面
@@ -50,8 +56,9 @@ export const userIntersectionObserver = () => {
 
   // 停止觀察
   const unobserve = () => {
-    if (observer.value && elRef.value) {
-      observer.value.unobserve(elRef.value);
+    if (observer.value) {
+      observer.value.disconnect();
+      observer.value = null;
     }
   };
 

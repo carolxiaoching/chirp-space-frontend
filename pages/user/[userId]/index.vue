@@ -1,13 +1,18 @@
 <script setup>
 import { userAPI } from "@/apis/user";
 
+// 路由切換時強制更新
+definePageMeta({
+  key: (route) => route.fullPath,
+});
+
 const route = useRoute();
 
 const { apiGetUserAllPosts } = userAPI();
 const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
 const { updateLike, deletePost } = usePostStore();
-const { intersectionObserver } = userIntersectionObserver();
+const { intersectionObserver } = useIntersectionObserver();
 
 const memberId = ref("");
 const posts = ref([]);
@@ -32,6 +37,7 @@ async function getUserAllPosts() {
       hasMoreData.value = false;
     }
   } catch (err) {
+    hasMoreData.value = false;
     pushToast({
       message: err.response?._data?.message || "取得所有貼文失敗",
       status: "danger",
@@ -50,6 +56,8 @@ async function toggleLike({ actionType, postId }) {
 
   // 修改本地 posts 資料，找到指定貼文並修改其 likes 陣列與 likesCount
   const post = posts.value.find((item) => item._id === postId);
+  // 避免 post 找不到時仍操作 likes 會報錯
+  if (!post) return;
   const index = post.likes.indexOf(data.targetUserId);
   if (actionType === "like" && index === -1) {
     post.likes.push(data.targetUserId);
