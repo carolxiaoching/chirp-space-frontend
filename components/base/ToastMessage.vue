@@ -8,7 +8,7 @@ const { clearToast } = toastStore;
   <TransitionGroup
     tag="ul"
     name="toast"
-    class="fixed top-4 right-4 z-[990] flex w-80 flex-col gap-3"
+    class="fixed top-4 left-1/2 z-[990] flex w-80 -translate-x-1/2 flex-col gap-3 xl:right-4 xl:left-auto xl:translate-x-0"
   >
     <li
       v-for="toast in toasts"
@@ -26,7 +26,7 @@ const { clearToast } = toastStore;
       <a
         href="#"
         class="hover:bg-light/20 rounded-full text-2xl"
-        @click="clearToast(toast.id)"
+        @click.prevent="clearToast(toast.id)"
       >
         <icon-ic-round-close />
       </a>
