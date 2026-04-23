@@ -84,7 +84,7 @@ onMounted(() => {
         <a
           href="#"
           class="text-muted hover:bg-light mb-4 ml-auto inline-block rounded p-2 text-3xl hover:cursor-pointer"
-          @click="closeOffcanvas"
+          @click.prevent="closeOffcanvas"
         >
           <icon-ic-outline-close />
         </a>
@@ -211,8 +211,7 @@ onMounted(() => {
               <a
                 href="#"
                 class="hover:bg-muted bg-light flex items-center justify-center rounded-md p-4 hover:text-white"
-                @click.prevent="clearAuth"
-                @click="closeOffcanvas"
+                @click.prevent="(clearAuth(), closeOffcanvas())"
               >
                 <icon-ic-round-logout class="me-2" />
                 登出
