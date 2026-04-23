@@ -68,6 +68,8 @@ async function toggleLike({ actionType, postId }) {
 
   // 修改本地 posts 資料，找到指定貼文並修改其 likes 陣列與 likesCount
   const post = posts.value.find((item) => item._id === postId);
+  // 避免 post 找不到時仍操作 likes 會報錯
+  if (!post) return;
   const index = post.likes.indexOf(data.targetUserId);
 
   if (actionType === "like" && index === -1) {
