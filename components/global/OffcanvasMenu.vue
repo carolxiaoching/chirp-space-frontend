@@ -3,7 +3,7 @@ const { isOffcanvasOpen, closeOffcanvas } = useOffcanvas();
 
 const authStore = useAuthStore();
 const { isSignedIn, userInfo } = storeToRefs(authStore);
-const { clearAuth } = authStore;
+const { logout } = authStore;
 
 const searchText = ref("");
 
@@ -211,7 +211,7 @@ onMounted(() => {
               <a
                 href="#"
                 class="hover:bg-muted bg-light flex items-center justify-center rounded-md p-4 hover:text-white"
-                @click.prevent="(clearAuth(), closeOffcanvas())"
+                @click.prevent="(closeOffcanvas(), logout())"
               >
                 <icon-ic-round-logout class="me-2" />
                 登出
