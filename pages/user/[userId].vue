@@ -12,16 +12,24 @@ const member = ref({});
 const { apiGetUserProfile } = userAPI();
 const { isFollowed } = usePostUserRelation();
 const { updateFollow } = useAuthStore();
+const { pushToast } = useToastStore();
 const authStore = useAuthStore();
 const { userInfo } = storeToRefs(authStore);
 
 async function getUserProfile() {
-  const data = await apiGetUserProfile(memberId.value);
-
-  if (data.status === "success") {
-    member.value = data.data;
-  } else {
-    // 跳轉首頁
+  try {
+    const data = await apiGetUserProfile(memberId.value);
+    if (data.status === "success") {
+      member.value = data.data;
+    } else {
+      // 跳轉首頁
+      await navigateTo("/");
+    }
+  } catch (err) {
+    pushToast({
+      message: err.response?._data?.message || "取得用戶資料失敗",
+      status: "danger",
+    });
     await navigateTo("/");
   }
 }

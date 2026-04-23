@@ -40,12 +40,7 @@ export const usePostStore = defineStore("post", () => {
           `${actionType === "like" ? "按讚" : "取消按讚"}失敗`,
         status: "danger",
       });
-      return {
-        status: "error",
-        message:
-          err.response?._data?.message ||
-          `${actionType === "like" ? "按讚" : "取消按讚"}失敗`,
-      };
+      return null;
     } finally {
       closeLoading();
     }

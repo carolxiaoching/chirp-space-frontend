@@ -12,7 +12,6 @@ const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
 
 const formRef = ref(null);
-const errorMsg = ref("");
 const user = ref({
   email: "",
   nickName: "",
@@ -104,12 +103,6 @@ function removePrevieImage() {
     class="mx-auto lg:max-w-3/4"
     @submit="updateAccount"
   >
-    <p v-if="errorMsg" class="alert alert-danger mb-8">
-      <icon-ic-round-warning class="me-4 text-2xl" />
-
-      {{ errorMsg }}
-    </p>
-
     <div class="mx-auto mb-8 size-[16rem]">
       <BaseUploadImage
         :index="0"

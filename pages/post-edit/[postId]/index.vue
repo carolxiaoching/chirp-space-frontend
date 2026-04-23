@@ -16,7 +16,6 @@ const { openLoading, closeLoading } = useLoading();
 const { pushToast } = useToastStore();
 
 const formRef = ref(null);
-const errorMsg = ref("");
 const content = ref("");
 const images = ref([
   { file: null, previewImageUrl: "" },
@@ -97,12 +96,6 @@ async function createPost() {
       class="bg-light relative rounded-md p-8"
       @submit="createPost"
     >
-      <p v-if="errorMsg" class="alert alert-danger mb-8">
-        <icon-ic-round-warning class="me-4 text-2xl" />
-
-        {{ errorMsg }}
-      </p>
-
       <div class="mb-6">
         <label for="content" class="form-label">
           <span class="text-danger">*</span>

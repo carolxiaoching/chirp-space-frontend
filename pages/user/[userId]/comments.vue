@@ -34,6 +34,7 @@ async function getUserComments() {
       hasMoreData.value = false;
     }
   } catch (err) {
+    hasMoreData.value = false;
     pushToast({
       message: err.response?._data?.message || "取得所有貼文失敗",
       status: "danger",

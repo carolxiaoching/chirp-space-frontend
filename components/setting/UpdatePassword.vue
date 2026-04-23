@@ -18,6 +18,7 @@ async function updatePassword() {
   openLoading();
 
   try {
+    errorMsg.value = "";
     await apiUpdatePassword(userData.value);
 
     // 重置表單

@@ -129,6 +129,7 @@ async function getData() {
       hasMoreData.value = false;
     }
   } catch (err) {
+    hasMoreData.value = false;
     pushToast({
       message: err.response?._data?.message || "取得貼文失敗",
       status: "danger",
@@ -156,6 +157,7 @@ async function getPostComments() {
       hasMoreData.value = false;
     }
   } catch (err) {
+    hasMoreData.value = false;
     pushToast({
       message: err.response?._data?.message || "取得所有評論失敗",
       status: "danger",
