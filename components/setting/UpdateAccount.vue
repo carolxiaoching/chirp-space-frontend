@@ -171,10 +171,7 @@ function removePrevieImage() {
     </div>
 
     <div class="mb-11">
-      <label for="description" class="form-label">
-        <span class="text-danger">*</span>
-        自我介紹
-      </label>
+      <label for="description" class="form-label"> 自我介紹 </label>
 
       <VField
         id="description"
@@ -188,8 +185,6 @@ function removePrevieImage() {
         :class="{
           'border-danger border-2': errors['自我介紹'],
         }"
-        rules="required"
-        required
       />
 
       <ErrorMessage name="自我介紹" class="text-danger mt-1 block" />
