@@ -42,7 +42,7 @@ async function getUserFollowers() {
   } catch (err) {
     hasMoreData.value = false;
     pushToast({
-      message: err.response?._data?.message || "取得所有貼文失敗",
+      message: err.response?._data?.message || "取得粉絲清單失敗",
       status: "danger",
     });
   } finally {
