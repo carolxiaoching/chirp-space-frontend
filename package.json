@@ -7,15 +7,37 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@headlessui/tailwindcss": "^0.2.2",
+    "@nuxt/eslint": "^1.7.1",
+    "@nuxtjs/tailwindcss": "^7.0.0-beta.0",
+    "@pinia/nuxt": "^0.11.2",
+    "@vee-validate/i18n": "^4.15.1",
+    "@vee-validate/nuxt": "^4.15.1",
+    "@vee-validate/rules": "^4.15.1",
+    "@vee-validate/zod": "^4.15.1",
+    "dayjs": "^1.11.13",
+    "eslint": "^9.32.0",
     "nuxt": "^3.17.7",
+    "nuxt-headlessui": "^1.2.1",
+    "pinia": "^3.0.3",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "vue": "^3.5.18",
+    "vue-easy-lightbox": "^1.19.0",
+    "vue-loading-overlay": "^6.0.6",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "git-cz": "^4.9.0"
+    "@iconify/json": "^2.2.364",
+    "@tailwindcss/forms": "^0.5.10",
+    "git-cz": "^4.9.0",
+    "unplugin-icons": "^22.2.0",
+    "unplugin-vue-components": "^28.8.0"
   },
   "config": {
     "commitizen": {

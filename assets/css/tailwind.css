@@ -1,0 +1,78 @@
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+
+@layer base {
+  html {
+    font-family: "Noto Sans TC", system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  /* 按鈕相關 */
+
+  .btn {
+    @apply inline-block cursor-pointer rounded-md border px-8 py-3 text-center shadow transition outline-none disabled:cursor-not-allowed disabled:shadow-none;
+  }
+
+  .btn-primary {
+    @apply border-primary bg-primary hover:bg-primary/80 disabled:border-primary/10 disabled:bg-primary/50 text-white;
+  }
+
+  .btn-outline-primary {
+    @apply border-primary bg-light hover:bg-primary/80 disabled:border-primary/10 disabled:bg-primary/50 text-primary hover:text-white;
+  }
+
+  .btn-light {
+    @apply bg-light text-muted border-muted hover:bg-muted disabled:bg-light hover:text-white;
+  }
+
+  .btn-danger {
+    @apply bg-danger border-danger hover:bg-danger/80 disabled:border-danger/10 disabled:bg-danger/80 text-white;
+  }
+
+  .btn-outline-danger {
+    @apply border-danger hover:bg-danger/80 disabled:border-danger/80 disabled:bg-danger/50 text-danger hover:text-white;
+  }
+
+  .btn-sm {
+    @apply px-6 py-2 text-sm;
+  }
+
+  /* 表格相關 */
+
+  .form-label {
+    @apply mb-3 block;
+  }
+
+  .form-control {
+    @apply placeholder:text-muted focus:border-muted block w-full rounded-md border border-gray-300 bg-white px-4 py-3 focus:ring-4 focus:ring-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:bg-zinc-50;
+  }
+
+  /* alert */
+
+  .alert {
+    @apply flex items-center rounded-md border px-8 py-5;
+  }
+
+  .alert-danger {
+    @apply bg-danger/20 text-danger border-danger/20;
+  }
+
+  /* avatar */
+
+  .avatar {
+    @apply block size-12 rounded-full;
+  }
+
+  .avatar-default {
+    @apply bg-muted/60 flex items-center justify-center text-3xl text-white;
+  }
+
+  .avatar-sm {
+    @apply size-10;
+  }
+
+  .avatar-lg {
+    @apply size-16;
+  }
+}
