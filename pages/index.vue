@@ -41,13 +41,19 @@ watch(
 async function getAllPosts() {
   openLoading();
 
+  const fetchKeyword = keyword.value;
+
   const params = {
     page: page.value,
-    keyword: keyword.value ? keyword.value : null,
+    keyword: fetchKeyword ? fetchKeyword : null,
   };
 
   try {
     const { data } = await apiGetAllPosts(params);
+
+    // 避免關鍵字已經更換，但之前的請求才完成，導致資料錯亂
+    if (keyword.value !== fetchKeyword) return;
+
     posts.value.push(...data.posts);
 
     if (data.pagination?.hasNext) {
