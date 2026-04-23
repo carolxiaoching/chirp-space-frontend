@@ -48,6 +48,9 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      htmlAttrs: {
+        lang: "zh-TW",
+      },
       title: "啾啾 | Chirp",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
@@ -75,7 +78,8 @@ export default defineNuxtConfig({
         },
         {
           property: "og:image",
-          content: "https://example.com/image.png",
+          content:
+            "https://res.cloudinary.com/dtgnh1wcu/image/upload/v1776915971/%E5%95%BE%E5%95%BEog_gdvypl.webp",
         },
         {
           property: "og:description",
