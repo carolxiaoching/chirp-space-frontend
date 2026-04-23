@@ -34,6 +34,17 @@ async function updateAccount() {
     // 如果有更新頭像，則上傳圖片
     const file = image.value.file;
     if (file) {
+      // 限制頭像大小不可超過 1MB
+      const MAX_SIZE = 1 * 1024 * 1024;
+      if (file.size > MAX_SIZE) {
+        pushToast({
+          message: "頭像大小不可超過 1MB",
+          status: "danger",
+        });
+        closeLoading();
+        return;
+      }
+
       const formData = new FormData();
       formData.append("images", file);
 
@@ -94,6 +105,13 @@ function removePrevieImage() {
 
   image.value = { file: null, previewImageUrl: "" };
 }
+
+// 解決用戶選了圖片後直接離開頁面，不會觸發 remove，URL 就永遠不會被釋放
+onBeforeUnmount(() => {
+  if (image.value.previewImageUrl) {
+    URL.revokeObjectURL(image.value.previewImageUrl);
+  }
+});
 </script>
 
 <template>

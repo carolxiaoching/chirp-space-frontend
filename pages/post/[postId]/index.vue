@@ -30,7 +30,7 @@ const loadRef = ref(null);
 const visibleRef = ref(false);
 const indexRef = ref(0);
 const postImages = computed(() => {
-  const images = post.value.images.map((item) => item.imageUrl);
+  const images = post.value.images?.map((item) => item.imageUrl) || [];
   return images;
 });
 const showImg = (index) => {
@@ -248,7 +248,7 @@ onMounted(async () => {
           {{ post.content }}
         </div>
 
-        <ul v-if="post.images.length" class="flex h-[16rem] gap-4">
+        <ul v-if="post.images?.length" class="flex h-[16rem] gap-4">
           <li
             v-for="(image, index) in post.images"
             :key="image._id"

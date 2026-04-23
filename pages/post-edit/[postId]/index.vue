@@ -49,6 +49,18 @@ async function createPost() {
       .map((item) => item.file);
 
     if (files.length) {
+      // 限制圖片大小不可超過 1MB
+      const MAX_SIZE = 1 * 1024 * 1024;
+      const oversized = files.find((f) => f.size > MAX_SIZE);
+      if (oversized) {
+        pushToast({
+          message: "圖片大小不可超過 1MB",
+          status: "danger",
+        });
+        closeLoading();
+        return;
+      }
+
       const formData = new FormData();
       files.forEach((file) => formData.append("images", file));
       const { data } = await apiUploadImages(formData);
@@ -80,6 +92,15 @@ async function createPost() {
     closeLoading();
   }
 }
+
+// 解決用戶選了圖片後直接離開頁面，不會觸發 remove，URL 就永遠不會被釋放
+onBeforeUnmount(() => {
+  images.value.forEach((image) => {
+    if (image.previewImageUrl) {
+      URL.revokeObjectURL(image.previewImageUrl);
+    }
+  });
+});
 </script>
 <template>
   <div>
@@ -122,7 +143,11 @@ async function createPost() {
       </div>
 
       <ul class="mb-10 flex flex-col gap-4 xl:h-[16rem] xl:flex-row">
-        <li v-for="(image, index) in images" :key="index" class="flex-1">
+        <li
+          v-for="(image, index) in images"
+          :key="`image-${index}`"
+          class="flex-1"
+        >
           <BaseUploadImage
             :index="index"
             :preview-image-url="image.previewImageUrl"
