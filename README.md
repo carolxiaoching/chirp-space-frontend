@@ -1,62 +1,43 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/carolxiaoching/chrip-space-frontend/refs/heads/develop/assets/images/logo.svg" alt="logo" width="150">
+  <img src="https://res.cloudinary.com/dtgnh1wcu/image/upload/v1776919293/logo_mld5fo.svg" alt="logo" width="150">
 </p>
 
 <h1 align="center">啾啾 | 社群平台</h1>
 
 <p align="center">
-  <strong>
-  ⭐ 此為「啾啾」的前端前台 ⭐
-  </strong>
+  <a href="https://chirp-space-frontend.zeabur.app">查看 Demo</a>　|　<a href="https://github.com/carolxiaoching/chirp-space-backend">後端 Repo</a>
 </p>
 
 <p align="center">
-  <a href="https://chrip-space-frontend.zeabur.app">
-  👉 查看 Demo
-  </a>
+  <img src="https://img.shields.io/badge/Nuxt_3-00DC82?style=for-the-badge&logo=nuxt&logoColor=white">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">
 </p>
+
+![cover](https://res.cloudinary.com/dtgnh1wcu/image/upload/v1776556078/cover_of6kkb.png)
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Nuxt_3-brightgreen?style=for-the-badge&logo=nuxt&logoColor=white&color=00DC82">
-  <img src="https://img.shields.io/badge/tailwind_css-brightgreen?style=for-the-badge&logo=tailwindcss&logoColor=white&color=06B6D4">
-  <img src="https://img.shields.io/badge/vite-brightgreen?style=for-the-badge&logo=vite&logoColor=white&color=646CFF">
+啾啾是一個輕量社群平台，使用者可以發文、上傳圖片、留言、按讚，並追蹤其他會員，<br>
+搭配無限滾動與即時互動反饋，讓使用體驗流暢自然
 </p>
 
-## 📒 專案簡介
+## 功能
 
-「啾啾」是一個輕量型社群分享平台，大家可以新增貼文、上傳圖片、發表評論互動、追蹤其他會員，並使用無限滾動瀏覽內容
+- 貼文：建立、瀏覽、關鍵字搜尋、圖片上傳、刪除
+- 互動：按讚 / 取消按讚、發表留言、追蹤 / 取消追蹤會員
+- 會員：註冊 / 登入、編輯個人資料與頭像、修改密碼
+- 個人頁面：貼文、按讚、留言、追蹤、粉絲列表（分頁切換）
+- 圖片燈箱、全站無限滾動、RWD 響應式設計
 
-整體介面以直覺、好上手為設計核心，讓使用者能輕鬆分享生活，並與他人建立連結
+## 技術亮點
 
-![cover](https://i.postimg.cc/qM9wbrr6/cover.png)
+- **無限滾動**：使用原生 Intersection Observer API 實作，元件卸載時自動清除監聽，無記憶體洩漏疑慮
+- **樂觀更新**：按讚、追蹤操作後直接更新本地狀態，不重新呼叫 API，提升互動流暢度
+- **路由守衛**：透過 Nuxt middleware 控制登入 / 訪客頁面存取，未登入觸發互動時顯示提示 Modal 而非強制跳轉
+- **表單驗證**：Vee-Validate 搭配自訂密碼規則與繁體中文錯誤訊息，支援即時驗證
+- **Git Flow**：依功能拆分分支開發，透過 PR 合併，commit message 使用語義化格式
 
-## 🧑‍💻 開發動機與心得
-
-### 💭 為什麼會做這個網站？
-
-我想做一個具備核心互動功能的輕量社群平台，並透過這個專案加強自己在 Nuxt 3 前端開發與後端 API 串接的能力，同時練習 Git Flow 與 PR 流程的應用
-
-### 🙌 我的學習與成長
-
-這是由個人獨立完成的前後端作品，從資料庫設計、API 開發、前端 UI 製作到部署皆親自實作
-在開發過程中，我熟悉了：
-
-- Nuxt 3 頁面與元件架構設計
-- 使用 Pinia 進行狀態管理與 API 串接
-- 無限滾動與前端資料更新（按讚、追蹤等互動反映）
-- 使用 Tailwind CSS 快速實作響應式設計
-- 前後端驗證與授權機制
-- Git Flow 分支管理與 PR 流程
-
-## ✨ 功能與特色
-
-- 📝 建立、瀏覽、搜尋貼文（支援上傳圖片與無限滾動載入）
-- ❤️ 貼文互動（按讚、追蹤 / 取消追蹤會員、發表評論）
-- 👤 會員系統（編輯個人資料、頭像上傳、更新密碼、查看會員貼文 / 按讚 / 評論 / 粉絲 / 追蹤列表）
-- 📄 表單驗證（Vee-Validate）與 🔄 加載動畫（Vue-Loading-Overlay）
-- 🖼️ 圖片燈箱效果、📱 響應式設計（RWD）、🎨 Iconify 圖示整合
-
-## 🛠️ 使用技術
+## 使用技術
 
 | 分類     | 技術                                                                                                                 |
 | -------- | -------------------------------------------------------------------------------------------------------------------- |
@@ -68,82 +49,33 @@
 | 時間處理 | [Dayjs](https://github.com/iamkun/dayjs)                                                                             |
 | 加載動畫 | [Vue-Loading-Overlay](https://github.com/ankurk91/vue-loading-overlay)                                               |
 | 格式工具 | [Prettier](https://prettier.io/)、[ESLint](https://eslint.org/)                                                      |
-| 部署     | [GitHub](https://github.com/)、[Render](https://render.com/)                                                         |
+| 部署     | [Zeabur](https://zeabur.com/)                                                                                        |
 
-## 📦 安裝與執行
+## 快速開始
 
 ```bash
-# 1. 複製專案
-git clone https://github.com/carolxiaoching/chrip-space-frontend.git
-
-# 2. 安裝依賴
-cd chrip-space-frontend
+git clone https://github.com/carolxiaoching/chirp-space-frontend.git
+cd chirp-space-frontend
 npm install
-
-# 3. 啟動開發伺服器
-npm run dev
-
-# 4. 編譯建構
-npm run build
+cp .env.example .env
 ```
 
-## 📸 頁面展示
+接著開啟 `.env` 填入後端 API 網址，再執行：
 
-### 🏠 首頁(貼文列表頁)
+```bash
+npm run dev
+```
 
-可透過關鍵字搜尋貼文，並支援無限滾動載入
+## 頁面截圖
 
-![貼文列表頁](https://i.postimg.cc/sX69pdKX/index.png)
+| 首頁（貼文列表）                                                                                     | 貼文詳細頁                                                                                                                            |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| ![首頁](https://res.cloudinary.com/dtgnh1wcu/image/upload/v1776556071/%E9%A6%96%E9%A0%81_qdzy59.png) | ![貼文詳細頁](https://res.cloudinary.com/dtgnh1wcu/image/upload/v1776556072/%E8%B2%BC%E6%96%87%E8%A9%B3%E7%B4%B0%E9%A0%81_roreg7.png) |
 
-### 📜 貼文詳細頁
+| 新增貼文                                                                                                                   | 會員頁面                                                                                                                   |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| ![新增貼文](https://res.cloudinary.com/dtgnh1wcu/image/upload/v1776556074/%E6%96%B0%E5%A2%9E%E8%B2%BC%E6%96%87_bapprj.png) | ![會員頁面](https://res.cloudinary.com/dtgnh1wcu/image/upload/v1776556075/%E6%9C%83%E5%93%A1%E9%A0%81%E9%9D%A2_r1lnf4.png) |
 
-顯示貼文內容與評論，可新增評論，評論列表同樣支援無限滾動載入
-
-![貼文詳細頁](https://i.postimg.cc/fR4MCVr4/post.png)
-
-### ✏️ 新增貼文頁
-
-可建立新貼文並上傳圖片
-
-![新增貼文頁](https://i.postimg.cc/9fBBQq7y/edit.png)
-
-### 👤 會員頁面
-
-顯示會員個人資料，以及該會員的（皆支援無限滾動載入）：
-
-- 所有貼文
-- 按讚貼文
-- 評論列表
-- 追蹤列表
-- 粉絲列表
-
-若為本人頁面，可刪除自己的資料
-
-![會員頁面](https://i.postimg.cc/6QK0Khy9/profile.png)
-
-### 🔧 會員設定頁
-
-可編輯個人資訊（含頭像上傳）與更新密碼
-
-![會員設定頁面](https://i.postimg.cc/MHn05PrY/setting.png)
-
-### 🔐 註冊 / 登入
-
-會員註冊與登入功能
-
-![註冊與登入頁](https://i.postimg.cc/tTzbCDqp/account.png)
-
-## 📁 專案結構
-
-| 專案     | 連結                                                                                                                     |
-| -------- | ------------------------------------------------------------------------------------------------------------------------ |
-| 前端前台 | [GitHub Repo](https://github.com/carolxiaoching/chrip-space-frontend) 🌞 [Demo](https://chrip-space-frontend.zeabur.app) |
-| 後端     | [GitHub Repo](https://github.com/carolxiaoching/chrip-space-backend)                                                     |
-
-## 📷 圖片來源
-
-- [unsplash](https://unsplash.com/)
-
-## 📌 備註
-
-本專案僅作為學習與展示用途，無任何商業營利行為
+| 會員設定                                                                                                                   | 登入 / 註冊                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| ![會員設定](https://res.cloudinary.com/dtgnh1wcu/image/upload/v1776556076/%E6%9C%83%E5%93%A1%E8%A8%AD%E5%AE%9A_txqq5q.png) | ![登入註冊](https://res.cloudinary.com/dtgnh1wcu/image/upload/v1776556072/%E7%99%BB%E5%85%A5%E8%A8%BB%E5%86%8A_eooxlm.png) |
