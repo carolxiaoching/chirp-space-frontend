@@ -61,6 +61,9 @@ export const useAuthStore = defineStore("auth", () => {
       const { data } = await apiMethod(memberId);
 
       if (actionType === "follow") {
+        if (!Array.isArray(userInfo.value.following)) {
+          userInfo.value.following = [];
+        }
         userInfo.value.following.push({
           user: memberId,
           createdAt: new Date().toISOString(),

@@ -48,7 +48,7 @@ async function toggleLike({ actionType, postId }) {
   }
 
   // 修改本地 post 資料並修改其 likes 陣列與 likesCount
-  const index = post.value.likes.indexOf(data.targetUserId);
+  const index = post.value.likes?.indexOf(data.targetUserId);
 
   if (actionType === "like" && index === -1) {
     post.value.likes.push(data.targetUserId);

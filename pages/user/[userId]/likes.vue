@@ -57,7 +57,7 @@ async function toggleLike({ actionType, postId }) {
   }
 
   // 如果是本人的帳號 - 刪除 posts 資料中此篇貼文
-  if (memberId.value === userInfo.value._id) {
+  if (memberId.value === userInfo.value?._id) {
     const postIndex = posts.value.findIndex((item) => item._id === postId);
     if (postIndex !== -1) {
       posts.value.splice(postIndex, 1);

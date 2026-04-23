@@ -74,7 +74,7 @@ defineEmits(["updateLike", "deletePost"]);
           {{ post.content }}
         </div>
 
-        <ul v-if="post.images.length" class="flex h-[16rem] gap-4">
+        <ul v-if="post.images?.length" class="flex h-[16rem] gap-4">
           <li v-for="image in post.images" :key="image._id" class="flex-1">
             <img
               :src="image.imageUrl"

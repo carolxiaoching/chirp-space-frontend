@@ -54,7 +54,7 @@ async function toggleFollow({ actionType, userId }) {
   const data = await updateFollow({ actionType, memberId: userId });
 
   // 如果錯誤或不是自己的追蹤資料則返回
-  if (!data || userInfo.value._id !== memberId.value) {
+  if (!data || userInfo.value?._id !== memberId.value) {
     return;
   }
 
