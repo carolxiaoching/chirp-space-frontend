@@ -85,9 +85,9 @@ onMounted(async () => {
             </span>
 
             <div class="text-muted">
-              <a href="#" class="hover:text-muted/80 mb-2 block">
+              <span class="hover:text-muted/80 mb-2 block">
                 {{ follower.nickName }}
-              </a>
+              </span>
             </div>
           </NuxtLink>
           <div v-if="follower._id !== userInfo?._id">

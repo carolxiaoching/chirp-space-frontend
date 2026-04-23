@@ -102,9 +102,9 @@ onMounted(async () => {
             </span>
 
             <div class="text-muted">
-              <a href="#" class="hover:text-muted/80 mb-2 block">
+              <span class="hover:text-muted/80 mb-2 block">
                 {{ comment.user?.nickName }}
-              </a>
+              </span>
 
               <p class="text-sm">{{ getTimeDiff(comment.createdAt) }}</p>
             </div>
