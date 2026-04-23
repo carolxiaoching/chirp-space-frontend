@@ -155,10 +155,18 @@ async function clearSearch() {
 
     <!-- 若沒有貼文 -->
     <div v-if="!posts.length && !hasMoreData" class="bg-light rounded-md p-8">
-      <p class="text-muted mb-4 text-center text-xl">
-        目前還沒有人開啟啾啾話題～ 🤐
-      </p>
-      <p class="text-muted/70 text-center">你要來當第一個嗎？</p>
+      <template v-if="keyword">
+        <p class="text-muted mb-4 text-center text-xl">
+          找不到「{{ keyword }}」相關的啾啾話題 🔍
+        </p>
+        <p class="text-muted/70 text-center">換個關鍵字試試看？</p>
+      </template>
+      <template v-else>
+        <p class="text-muted mb-4 text-center text-xl">
+          目前還沒有人開啟啾啾話題～ 🤐
+        </p>
+        <p class="text-muted/70 text-center">你要來當第一個嗎？</p>
+      </template>
     </div>
   </div>
 </template>
